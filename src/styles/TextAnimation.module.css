@@ -1,0 +1,28 @@
+.textLink {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.textLink::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #FFD700; /* Yellow color, you can change this */
+  transition: width 0.3s ease-in-out;
+}
+
+.textLink:hover::after {
+  width: 100%;
+}
+
+/* Optional: Add animation for when the text is active/focused */
+.textLink:focus::after {
+  width: 100%;
+  background-color: #FFA500; /* Slightly darker yellow when focused */
+}
