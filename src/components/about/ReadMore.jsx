@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowLeft } from 'react-icons/fa';
-import Logo1 from '../about/ReadMore image.jpeg';
+import Logo1 from './Readmore image.jpeg';
 
 const ReadMore = () => {
   const { category } = useParams();
