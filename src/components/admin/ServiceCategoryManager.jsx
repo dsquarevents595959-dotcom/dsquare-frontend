@@ -33,7 +33,7 @@ const ServiceCategoryManager = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/api/service-cards/categories/overview');
+      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/categories/overview');
       
       if (!response.ok) {
         console.error('Failed to fetch categories:', response.status);
@@ -52,7 +52,7 @@ const ServiceCategoryManager = () => {
   const fetchServiceCards = async (category) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/service-cards/${category}`);
+      const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${category}`);
       
       if (!response.ok) {
         console.error('Failed to fetch service cards:', response.status);
@@ -87,7 +87,7 @@ const ServiceCategoryManager = () => {
     uploadFormData.append('sortOrder', formData.sortOrder);
 
     try {
-      const response = await fetch('/api/service-cards', {
+      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -139,7 +139,7 @@ const ServiceCategoryManager = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`/api/service-cards/${cardId}`, {
+      const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${cardId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -197,7 +197,7 @@ const ServiceCategoryManager = () => {
           uploadFormData.append('parentCardId', formData.parentCardId);
           uploadFormData.append('sortOrder', formData.sortOrder);
 
-          const response = await fetch(`/api/service-cards/${editingCard._id}`, {
+          const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${editingCard._id}`, {
             method: 'PUT',
             headers: {
               'Authorization': `Bearer ${token}`
@@ -216,7 +216,7 @@ const ServiceCategoryManager = () => {
           }
         } else {
           // Update metadata only (no new file)
-          const response = await fetch(`/api/service-cards/${editingCard._id}`, {
+          const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${editingCard._id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
