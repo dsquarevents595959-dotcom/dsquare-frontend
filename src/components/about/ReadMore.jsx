@@ -20,7 +20,7 @@ const ReadMore = () => {
   const fetchCategoryCards = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/service-cards/${category}`);
+      const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${category}`);
       const result = await response.json();
       if (result.success) {
         setCards(result.data);
