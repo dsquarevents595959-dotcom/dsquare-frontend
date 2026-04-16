@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import heroVideo from './courousel-hero.mp4';
+import DsquareLogo from './DsquareLogo';
 // import BookingForm from '../booking/BookingForm';
 
 const Hero = () => {
@@ -59,9 +60,9 @@ const Hero = () => {
       
       {/* Content */}
       <div className="container mx-auto z-10 px-4 text-center sm:px-6">
-        <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 animate-fade-in px-1">
-          <span className="text-yellow-400">DSquare</span> Events
-        </h1>
+        <div className="mb-4 sm:mb-6 animate-fade-in px-1">
+          <DsquareLogo />
+        </div>
 
         <p className="mb-8 max-w-3xl mx-auto px-1 text-base font-light leading-relaxed sm:mb-10 sm:text-lg md:text-xl lg:text-2xl">
           Igniting Your Special Moments with Spectacular Fireworks & Unforgettable Events
