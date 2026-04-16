@@ -14,7 +14,7 @@ const Weddings = () => {
 
   const fetchWeddingServices = async () => {
     try {
-      const response = await fetch('/api/service-cards/weddings');
+      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/weddings');
       const result = await response.json();
       if (result.success) {
         setWeddingServices(result.data);

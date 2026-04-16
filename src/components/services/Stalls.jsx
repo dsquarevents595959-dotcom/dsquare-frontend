@@ -14,7 +14,7 @@ const Stalls = () => {
 
   const fetchStallServices = async () => {
     try {
-      const response = await fetch('/api/service-cards/stalls');
+      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/stalls');
       const result = await response.json();
       if (result.success) {
         setStallServices(result.data);

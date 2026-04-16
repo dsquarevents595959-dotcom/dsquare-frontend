@@ -14,7 +14,7 @@ const GrandEntry = () => {
 
   const fetchGrandEntryServices = async () => {
     try {
-      const response = await fetch('/api/service-cards/grand-entry');
+      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/grand-entry');
       const result = await response.json();
       if (result.success) {
         setGrandEntryServices(result.data);
