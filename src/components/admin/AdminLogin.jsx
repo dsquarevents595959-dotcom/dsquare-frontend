@@ -24,7 +24,7 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
