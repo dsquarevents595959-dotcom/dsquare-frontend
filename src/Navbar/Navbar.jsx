@@ -95,6 +95,34 @@ const MarqueeText = () => {
 const Navbar = () => {
   return (
     <header className="site-header fixed top-0 left-0 right-0 z-40 flex w-full flex-col bg-white shadow-md">
+      {/* Top Info Bar */}
+      <div className="flex flex-col sm:flex-row bg-black text-white text-xs sm:text-sm py-2 px-3 sm:px-6 justify-center items-center gap-2 sm:gap-4 lg:gap-8 flex-wrap">
+        <a href="tel:+917032619629" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
+          <FaPhoneAlt className="text-yellow-500" />
+          <span>+91 7032619629</span>
+        </a>
+        <div className="hidden md:flex items-center gap-2">
+          <span>|</span>
+        </div>
+        <a href="mailto:dsquarevents595959@gmail.com" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
+          <span>📧</span>
+          <span>dsquarevents595959@gmail.com</span>
+        </a>
+        <div className="hidden lg:flex items-center gap-2">
+          <span>|</span>
+        </div>
+        <a 
+          href="https://www.google.com/maps/search/D+Square+Events+Vijayawada/@16.5054,-80.6666,13z" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 hover:text-yellow-400 transition-colors"
+        >
+          <span>📍</span>
+          <span>Andhra Pradesh, Vijayawada</span>
+        </a>
+      </div>
+      {/* Divider Line */}
+      <div className="h-px bg-white"></div>
       {/* <MarqueeText /> */}
       <NavbarContent />
     </header>
@@ -342,15 +370,15 @@ const NavbarContent = () => {
   }, [location.state]);
 
   return (
-    <nav className="relative w-full border-b border-gray-200 bg-white px-3 sm:px-6 lg:px-8 py-2 z-50">
+    <nav className="relative w-full border-b border-gray-200 bg-black px-3 sm:px-6 lg:px-8 py-2 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4 min-h-[3.25rem] sm:min-h-16 relative">
           {/* Logo */}
-          <div className="flex h-10 sm:h-12 shrink-0 items-center max-w-[42vw] sm:max-w-none">
+          <div className="flex h-16 sm:h-20 shrink-0 items-center max-w-[42vw] sm:max-w-none">
             <Link to="/" className="block leading-none">
               <img
                 src={Logo}
                 alt="AK Events & Fireworks"
-                className="h-12 w-auto max-h-10 sm:h-11 sm:max-h-12 md:max-h-[3.25rem] object-contain object-left hover:scale-105 transition-transform"
+                className="h-16 sm:h-20 md:h-24 w-auto object-contain object-left hover:scale-105 transition-transform"
               />
             </Link>
           </div>
@@ -365,7 +393,7 @@ const NavbarContent = () => {
             <button
               type="button"
               onClick={toggleMenu}
-              className="rounded-lg p-2 text-2xl leading-none text-gray-700 hover:bg-gray-100 hover:text-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+              className="rounded-lg p-2 text-2xl leading-none text-white hover:bg-gray-100 hover:text-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
               aria-expanded={menuOpen}
               aria-label="Toggle menu"
             >
@@ -397,12 +425,17 @@ const NavbarContent = () => {
             onMouseLeave={() => isDesktop && setShowAbout(false)}
             className="relative"
           >
-            <div 
-              onClick={() => !isDesktop && setShowAbout(!showAbout)}
-              className="flex items-center gap-2 cursor-pointer hover:text-green-600 py-2.5 lg:py-1"
-            >
-              <FaInfoCircle /> About Us
-              <FaChevronDown className={`transition ${showAbout ? "rotate-180" : ""}`} />
+            <div className="flex items-center cursor-pointer">
+              <div 
+                onClick={() => scrollToSection("about-us")}
+                className={`flex items-center gap-2 cursor-pointer py-2.5 lg:py-1 ${menuOpen ? 'text-black' : 'text-white'} lg:text-white hover:text-green-600`}
+              >
+                <FaInfoCircle /> About Us
+              </div>
+              <FaChevronDown 
+                className={`transition p-2 cursor-pointer ${menuOpen ? 'text-black' : 'text-white'} lg:text-white hover:text-green-600 ${showAbout ? "rotate-180" : ""}`}
+                onClick={() => !isDesktop && setShowAbout(!showAbout)}
+              />
             </div>
 
             {/* Dropdown */}
@@ -483,7 +516,7 @@ const NavbarContent = () => {
             className="relative"
           >
             <div 
-              className="flex items-center gap-2 cursor-pointer hover:text-green-600 py-2.5 lg:py-1"
+              className={`flex items-center gap-2 cursor-pointer py-2.5 lg:py-1 ${menuOpen ? 'text-black' : 'text-white'} lg:text-white hover:text-green-600`}
               onClick={(e) => {
                 e.stopPropagation();
                 scrollToSection('services');
@@ -504,22 +537,22 @@ const NavbarContent = () => {
               ${showServices ? "opacity-100 visible translate-y-0" : "hidden lg:block lg:pointer-events-none lg:opacity-0 lg:invisible lg:-translate-y-3"}`}
               style={{ zIndex: 1002, maxHeight: "min(55vh, 24rem)", overflowY: "auto" }}
             >
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("cloud-effects")}>
+              <li className="p-2 hover:bg-green-100 text-gray-900 flex items-center gap-2" onClick={() => scrollToServiceCard("cloud-effects")}>
                 <GiDiamondRing className="text-yellow-500" /> Weddings
               </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("luxury-wedding")}>
+              <li className="p-2 hover:bg-green-100 text-gray-900 flex items-center gap-2" onClick={() => scrollToServiceCard("luxury-wedding")}>
                 <FaBirthdayCake className="text-pink-500" /> Birthdays
               </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("grand-entry")}>
+              <li className="p-2 hover:bg-green-100 text-gray-900 flex items-center gap-2" onClick={() => scrollToServiceCard("grand-entry")}>
                 <FaMicrophone className="text-amber-700" /> Grand Entry
               </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("venue-decoration")}>
+              <li className="p-2 hover:bg-green-100 text-gray-900 flex items-center gap-2" onClick={() => scrollToServiceCard("venue-decoration")}>
                 <FaMusic className="text-purple-500" /> DJ & Lighting & Visual
               </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("fireworks")}>
+              <li className="p-2 hover:bg-green-100 text-gray-900 flex items-center gap-2" onClick={() => scrollToServiceCard("fireworks")}>
                 <GiFireworkRocket className="text-red-500" /> Entertainment & Fireworks
               </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("sound-light")}>
+              <li className="p-2 hover:bg-green-100 text-gray-900 flex items-center gap-2" onClick={() => scrollToServiceCard("sound-light")}>
                 <FaShoppingCart className="text-orange-500" /> Stalls
               </li>
               {/* <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("data-engineering")}>

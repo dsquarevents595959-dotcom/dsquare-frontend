@@ -8,7 +8,7 @@ const MotionLink = motion.create(Link);
 const statsData = [
   { label: 'Events Delivered', value: 2000 },
   { label: 'Yrs Of Experience', value: 12 },
-  { label: 'Happy Clients', value: 1900 },
+  { label: 'Happy Clients', value: 1990 },
   { label: 'Trusted Partners', value: 60 },
 ];
 

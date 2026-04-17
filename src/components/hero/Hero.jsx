@@ -64,8 +64,14 @@ const Hero = () => {
           <DsquareLogo />
         </div>
 
-        <p className="mb-8 max-w-3xl mx-auto px-1 text-base font-light leading-relaxed sm:mb-10 sm:text-lg md:text-xl lg:text-2xl">
+        <p className="mb-8 max-w-4xl mx-auto px-1 text-base font-serif font-semibold leading-relaxed sm:mb-10 sm:text-lg md:text-xl lg:text-2xl">
           Igniting Your Special Moments with Spectacular Fireworks & Unforgettable Events
+        </p>
+
+
+        
+        <p className="mb-8 max-w-full mx-auto px-1 text-base font-light leading-relaxed sm:mb-10 sm:text-lg md:text-xl lg:text-2xl whitespace-nowrap">
+          Big Deals in Small Budget!
         </p>
         
         <div className="flex w-full max-w-md flex-col gap-3 px-2 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-6">

@@ -38,7 +38,9 @@ const Contact = () => {
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <FaMapMarkerAlt className="text-yellow-500 text-2xl mt-1" />
+                <div className="flex-shrink-0 rounded-full bg-yellow-500 p-3 flex items-center justify-center">
+                  <FaMapMarkerAlt className="text-white text-2xl sm:text-3xl" />
+                </div>
                 <div>
                   <h4 className="font-semibold">Our Location</h4>
                   <p className="text-gray-600">2nd floor, Ganesh Rd poojitha residency, D. No- #61-22/1-1, beside janasena party office, near padavalarevu, ramalingeswaranagar, Vijayawada, Andhra Pradesh 520013</p>
@@ -46,7 +48,9 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <FaPhone className="text-yellow-500 text-2xl mt-1" />
+                <div className="flex-shrink-0 rounded-full bg-yellow-500 p-3 flex items-center justify-center">
+                  <FaPhone className="text-white text-2xl sm:text-3xl" />
+                </div>
                 <div>
                   <h4 className="font-semibold">Phone</h4>
                   <p className="text-gray-600">+91 7032619629</p>
@@ -54,7 +58,9 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <FaEnvelope className="text-yellow-500 text-2xl mt-1" />
+                <div className="flex-shrink-0 rounded-full bg-yellow-500 p-3 flex items-center justify-center">
+                  <FaEnvelope className="text-white text-2xl sm:text-3xl" />
+                </div>
                 <div>
                   <h4 className="font-semibold">Email</h4>
                   <p className="text-gray-600">dsquarevents595959@gmail.com</p>
@@ -68,22 +74,22 @@ const Contact = () => {
             <p className="text-gray-300 mb-6">
               Our team is ready to answer your questions and help you plan the perfect event.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4 sm:gap-6">
               <a href="https://www.facebook.com/share/1AzLuChNq1/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-900 hover:bg-yellow-500 hover:text-black transition-colors">
-                <FaFacebook />
+                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
+                <FaFacebook className="text-xl sm:text-2xl" />
               </a>
               <a href="https://wa.me/917032619629" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-900 hover:bg-yellow-500 hover:text-black transition-colors">
-                <FaWhatsapp />
+                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
+                <FaWhatsapp className="text-xl sm:text-2xl" />
               </a>
               <a href="https://www.instagram.com/dsquare_events_?utm_source=qr&igsh=dWM2YWd2Y2dsaXQ1" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-900 hover:bg-yellow-500 hover:text-black transition-colors">
-                <FaInstagram />
+                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
+                <FaInstagram className="text-xl sm:text-2xl" />
               </a>
               <a href="https://www.youtube.com/@DSQUARE.EVENTS.DANCE.5959" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-900 hover:bg-yellow-500 hover:text-black transition-colors">
-                <FaYoutube />
+                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
+                <FaYoutube className="text-xl sm:text-2xl" />
               </a>
             </div>
           </div>
