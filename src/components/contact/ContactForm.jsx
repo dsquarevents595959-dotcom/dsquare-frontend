@@ -40,13 +40,13 @@ const ContactForm = () => {
     }
     
     try {
-      // Use the CONTACT endpoint which connects to MongoDB
-      const contactEndpoint = `${API_BASE}/api/contact`;
+      // Use the EMAIL endpoint which sends emails
+      const emailEndpoint = 'https://dsquare-backend-dygo.onrender.com/api/email/send-contact';
       
-      console.log('Submitting to:', contactEndpoint);
+      console.log('Submitting to:', emailEndpoint);
       console.log('Form data:', formData);
 
-      const response = await axios.post(contactEndpoint, formData, {
+      const response = await axios.post(emailEndpoint, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
