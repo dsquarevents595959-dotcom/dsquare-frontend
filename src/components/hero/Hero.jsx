@@ -96,19 +96,20 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator Arrow */}
       <div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer py-8 sm:py-12"
         onClick={() => document.getElementById('about-us')?.scrollIntoView({ behavior: 'smooth' })}
       >
         <svg 
-          className="w-10 h-10 text-white hover:text-yellow-400 transition-colors" 
+          className="w-8 h-8 sm:w-10 sm:h-10 text-white hover:text-yellow-400 transition-colors drop-shadow-lg" 
           fill="none" 
           stroke="currentColor" 
+          strokeWidth={3}
           viewBox="0 0 24 24" 
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>
 
