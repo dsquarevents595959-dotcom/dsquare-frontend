@@ -113,10 +113,10 @@ const Services = () => (
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={cardMotion}
-            className="lg:col-start-2 lg:row-start-2 flex flex-col items-center justify-center rounded-full border-2 border-red-500 bg-slate-900/95 p-8 shadow-2xl"
+            className="lg:col-start-2 lg:row-start-2 flex flex-col items-center justify-center rounded-full border-2 border-red-500 bg-slate-900/95 p-10 shadow-2xl"
           >
-            <div className="rounded-full border border-white/10 bg-blue-300/95 p-8 shadow-xl shadow-slate-950/20">
-              <img src={Logo2} alt="Dsquare Events" className="h-27 w-28 rounded-full object-cover" />
+            <div className="rounded-full border border-white/10 bg-blue-600 p-10 shadow-xl shadow-slate-950/20">
+              <img src={Logo2} alt="Dsquare Events" className="h-30 w-30 rounded-full object-cover" />
             </div>
             <p className="mt-6 text-sm uppercase tracking-[0.35em] text-red-500">Dsquare Events</p>
             <p className="mt-3 text-center text-base font-semibold text-white">Your event partner for stunning experiences.</p>
