@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaLightbulb, FaMusic, FaBolt } from 'react-icons/fa';
+import { FaLightbulb, FaMusic, FaBolt, FaPlay, FaPause } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
 
 const DjLightingVisual = () => {
   const [djLightingServices, setDjLightingServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [playingVideos, setPlayingVideos] = useState({});
+  const videoRefs = useRef({}); // ✅ FIX
 
   useEffect(() => {
     fetchDjLightingServices();
@@ -87,19 +89,39 @@ const DjLightingVisual = () => {
                     className="w-full h-48 object-cover"
                   />
                 ) : (
-                  <div className="w-full h-48 flex items-center justify-center bg-slate-800">
+                  <div className="relative">
                     <video
-                      src={service.mediaUrl}
-                      alt={service.cardTitle}
-                      className="w-full h-48 object-cover"
-                      controls
-                      muted
-                      loop
-                      playsInline
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
+                    ref={(el) => (videoRefs.current[service._id] = el)} // ✅ FIX
+                    src={service.mediaUrl}
+                    className="w-full h-48 object-cover"
+                    loop
+                    playsInline
+                  />
+
+                  {/* PLAY BUTTON */}
+                  <button
+                    onClick={() => {
+                      const video = videoRefs.current[service._id];
+                      if (!video) return;
+
+                      if (playingVideos[service._id]) {
+                        video.pause();
+                        setPlayingVideos(prev => ({ ...prev, [service._id]: false }));
+                      } else {
+                        video.play();
+                        setPlayingVideos(prev => ({ ...prev, [service._id]: true }));
+                      }
+                    }}
+                    className="absolute inset-0 flex items-center justify-center bg-black/40"
+                  >
+                    {playingVideos[service._id] ? (
+                      <FaPause className="text-white text-3xl" />
+                    ) : (
+                      <FaPlay className="text-white text-3xl" />
+                    )}
+                  </button>
+                </div>
+
                 )}
               </div>
               <div className="p-6">

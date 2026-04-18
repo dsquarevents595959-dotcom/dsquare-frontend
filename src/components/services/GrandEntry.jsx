@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { FaPlay, FaPause } from 'react-icons/fa';
 import { GiFlowers, GiDoorway } from 'react-icons/gi';
 import { FaArrowLeft } from 'react-icons/fa';
 
 const GrandEntry = () => {
   const [grandEntryServices, setGrandEntryServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [playingVideos, setPlayingVideos] = useState({});
 
   useEffect(() => {
     fetchGrandEntryServices();
@@ -87,18 +89,44 @@ const GrandEntry = () => {
                     className="w-full h-48 object-cover"
                   />
                 ) : (
-                  <div className="w-full h-48 flex items-center justify-center bg-slate-800">
+                  <div className="w-full h-48 flex items-center justify-center bg-slate-800 relative">
                     <video
+                      ref={(el) => {
+                        if (el) {
+                          el.videoId = service._id;
+                        }
+                      }}
                       src={service.mediaUrl}
                       alt={service.cardTitle}
                       className="w-full h-48 object-cover"
                       controls
-                      muted
                       loop
                       playsInline
+                      preload="metadata"
+                      onPlay={() => setPlayingVideos(prev => ({...prev, [service._id]: true}))}
+                      onPause={() => setPlayingVideos(prev => ({...prev, [service._id]: false}))}
                     >
                       Your browser does not support the video tag.
                     </video>
+                    <button 
+                      onClick={() => {
+                        const video = document.querySelector(`video[video-id="${service._id}"]`);
+                        if (video) {
+                          if (playingVideos[service._id]) {
+                            video.pause();
+                            setPlayingVideos(prev => ({...prev, [service._id]: false}));
+                          } else {
+                            video.play();
+                            setPlayingVideos(prev => ({...prev, [service._id]: true}));
+                          }
+                        }
+                      }}
+                      className="absolute inset-0 flex items-center justify-center bg-black/50 hover:bg-black/70 transition-colors group"
+                    >
+                      <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                        {playingVideos[service._id] ? <FaPause className="w-12 h-12" /> : <FaPlay className="w-12 h-12" />}
+                      </div>
+                    </button>
                   </div>
                 )}
               </div>

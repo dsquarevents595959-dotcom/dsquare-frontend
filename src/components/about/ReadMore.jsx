@@ -1,13 +1,16 @@
 import { Link, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowLeft } from 'react-icons/fa';
+// import { FaArrowLeft } from 'react-icons/fa';
 import Logo1 from './Readmore image.jpeg';
-
+import { FaPlay, FaPause, FaArrowLeft } from 'react-icons/fa';
 const ReadMore = () => {
   const { category } = useParams();
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
+   const [playingVideos, setPlayingVideos] = useState({});
+  const videoRefs = useRef({}); // ✅ FIX
+
 
   useEffect(() => {
     if (category) {
@@ -97,9 +100,39 @@ const ReadMore = () => {
                         className="w-full h-64 object-cover"
                       />
                     ) : (
-                      <div className="w-full h-64 flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-700">
-                        <span className="text-4xl">🎬</span>
-                      </div>
+                      <div className="relative">
+                  <video
+                    ref={(el) => (videoRefs.current[card._id] = el)} // ✅ FIX
+                    src={card.mediaUrl}
+                    className="w-full h-48 object-cover"
+                    loop
+                    playsInline
+                  />
+
+                  {/* PLAY BUTTON */}
+                  <button
+                    onClick={() => {
+                      const video = videoRefs.current[card._id];
+                      if (!video) return;
+
+                      if (playingVideos[card._id]) {
+                        video.pause();
+                        setPlayingVideos(prev => ({ ...prev, [card._id]: false }));
+                      } else {
+                        video.play();
+                        setPlayingVideos(prev => ({ ...prev, [card._id]: true }));
+                      }
+                    }}
+                    className="absolute inset-0 flex items-center justify-center bg-black/40"
+                  >
+                    {playingVideos[card._id] ? (
+                      <FaPause className="text-white text-3xl" />
+                    ) : (
+                      <FaPlay className="text-white text-3xl" />
+                    )}
+                  </button>
+                </div>
+
                     )}
                   </div>
                   <div className="p-6">

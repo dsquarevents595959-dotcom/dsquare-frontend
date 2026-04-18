@@ -440,9 +440,7 @@ const ServiceCategoryManager = () => {
                       className="w-full h-48 object-cover"
                     />
                   ) : (
-                    <div className="w-full h-48 flex items-center justify-center">
-                      <FaVideo className="text-4xl text-slate-500" />
-                    </div>
+                    <video src ={card.mediaUrl} className="w-full h-48 object-cover" controls preload="metadata"/>
                   )}
                 </div>
                 <div className="p-4">
