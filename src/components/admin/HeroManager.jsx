@@ -46,6 +46,17 @@ const HeroManager = () => {
     }
   };
 
+  const handleTokenError = () => {
+    console.warn('[HeroManager] Token is invalid, clearing localStorage');
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminInfo');
+    setError('Your session has expired. Please login again.');
+    // Redirect to login after 2 seconds
+    setTimeout(() => {
+      window.location.href = '/admin/login';
+    }, 2000);
+  };
+
   const handleUpload = async (e) => {
     e.preventDefault();
     
@@ -67,16 +78,32 @@ const HeroManager = () => {
         ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
         : 'http://localhost:5000/api/hero/video';
       
+      if (!token) {
+        setError('No admin token found. Please login again.');
+        console.error('❌ No token in localStorage');
+        return;
+      }
+      
+      console.log('[HeroManager] Uploading video with token:', !!token);
+      
       const response = await fetch(apiUrl, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
-        'Origin': 'http://localhost:5000'
+          'Accept': 'application/json',
         },
         body: formData,
       });
 
+      console.log('[HeroManager] Upload response status:', response.status);
+      
+      // Check for 401 Unauthorized
+      if (response.status === 401) {
+        console.error('[HeroManager] 401 Unauthorized - Token is invalid');
+        handleTokenError();
+        return;
+      }
+      
       const result = await response.json();
       if (result.success) {
         setSuccess('Hero video updated successfully!');
@@ -87,10 +114,11 @@ const HeroManager = () => {
         setTimeout(() => setSuccess(''), 3000);
       } else {
         setError(result.message || 'Failed to upload hero video');
+        console.error('[HeroManager] Upload failed:', result);
       }
     } catch (error) {
-      console.error('Upload error:', error);
-      setError('Failed to upload hero video');
+      console.error('[HeroManager] Upload error:', error);
+      setError('Failed to upload hero video: ' + error.message);
     } finally {
       setUploading(false);
     }
@@ -113,10 +141,16 @@ const HeroManager = () => {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'Origin': 'http://localhost:5000'
+          'Accept': 'application/json'
         }
       });
+
+      // Check for 401 Unauthorized
+      if (response.status === 401) {
+        console.error('[HeroManager] 401 Unauthorized - Token is invalid');
+        handleTokenError();
+        return;
+      }
 
       const result = await response.json();
       if (result.success) {

@@ -24,7 +24,14 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/auth/login', {
+      // Use localhost in development, production URL in production
+      const apiUrl = process.env.NODE_ENV === 'production'
+        ? 'https://dsquare-backend-dygo.onrender.com/api/auth/login'
+        : 'http://localhost:5000/api/auth/login';
+      
+      console.log('[AdminLogin] Logging in with URL:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,16 +39,21 @@ const AdminLogin = () => {
         body: JSON.stringify(formData)
       });
 
+      console.log('[AdminLogin] Login response status:', response.status);
       const data = await response.json();
+      console.log('[AdminLogin] Login response:', data);
 
       if (data.success) {
+        console.log('[AdminLogin] Login successful, storing token');
         localStorage.setItem('adminToken', data.token);
         localStorage.setItem('adminInfo', JSON.stringify(data.admin));
         navigate('/admin/dashboard');
       } else {
         setError(data.message || 'Login failed');
+        console.error('[AdminLogin] Login failed:', data);
       }
     } catch (err) {
+      console.error('[AdminLogin] Error:', err);
       setError('Server error. Please try again.');
     } finally {
       setLoading(false);
