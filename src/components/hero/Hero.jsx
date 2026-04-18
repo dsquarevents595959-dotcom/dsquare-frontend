@@ -163,14 +163,15 @@ const Hero = () => {
           <DsquareLogo />
         </div>
 
-        <p className="mb-8 max-w-4xl mx-auto px-1 text-base font-serif font-semibold leading-relaxed sm:mb-10 sm:text-lg md:text-xl lg:text-2xl">
-          Igniting Your Special Moments with Spectacular Fireworks & Unforgettable Events
+        <p className="mb-8 max-w-4xl mx-auto px-1 text-2xl font-extrabold leading-tight sm:mb-10 sm:text-2xl md:text-4xl lg:text-5xl tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
+          Igniting Your Special Moments with Spectacular Fireworks &{' '}
+          <span className="text-red-500">Unforgettable Events</span>
         </p>
 
 
         
-        <p className="mb-8 max-w-full mx-auto px-1 text-base font-light leading-relaxed sm:mb-10 sm:text-lg md:text-xl lg:text-2xl whitespace-nowrap">
-          Big Deals in Small Budget!
+        <p className="mb-8 max-w-full mx-auto px-1 text-lg font-bold leading-relaxed sm:mb-10 sm:text-xl md:text-3xl lg:text-4xl font-serif tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <span className="text-red-500">Big Deals</span> in Small Budget!
         </p>
         
         <div className="flex w-full max-w-md flex-col gap-3 px-2 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-6">
