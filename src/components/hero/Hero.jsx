@@ -5,11 +5,14 @@ import DsquareLogo from './DsquareLogo';
 const Hero = () => {
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [heroVideo, setHeroVideo] = useState(null);
+  const [videoLoadError, setVideoLoadError] = useState(false);
   const videoRef = useRef(null);
 
   // Fetch hero video from API
   useEffect(() => {
     fetchHeroVideo();
+    // Test if API is accessible
+    testApiHealth();
   }, []);
 
   // Ensure video plays properly on mobile devices
@@ -39,13 +42,78 @@ const Hero = () => {
         ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
         : 'http://localhost:5000/api/hero/video';
       
-      const response = await fetch(apiUrl);
+      console.log('[Hero] Fetching hero video from:', apiUrl);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      console.log('[Hero] API response status:', response.status, response.statusText);
+      
+      if (!response.ok) {
+        console.warn(`[Hero] Hero video API returned ${response.status} ${response.statusText}. Using fallback video.`);
+        const errorText = await response.text();
+        console.warn('[Hero] Error response body:', errorText);
+        
+        setHeroVideo({
+          videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+          videoTitle: 'DSquare Events'
+        });
+        return;
+      }
+      
       const result = await response.json();
-      if (result.success) {
+      console.log('[Hero] API response received:', result.success);
+      
+      if (result.success && result.data) {
+        console.log('[Hero] Hero video loaded successfully');
         setHeroVideo(result.data);
+      } else {
+        console.warn('[Hero] Invalid hero video response. Using fallback.');
+        setHeroVideo({
+          videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+          videoTitle: 'DSquare Events'
+        });
       }
     } catch (error) {
-      console.error('Error fetching hero video:', error);
+      console.error('[Hero] Error fetching hero video:', error.message);
+      // Fallback to working video
+      setHeroVideo({
+        videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        videoTitle: 'DSquare Events'
+      });
+    }
+  };
+
+  const testApiHealth = async () => {
+    try {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://dsquare-backend-dygo.onrender.com/api/hero/health'
+        : 'http://localhost:5000/api/hero/health';
+      
+      console.log('[Hero] Testing API health at:', apiUrl);
+      const response = await fetch(apiUrl, { 
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('[Hero] API health check passed:', data);
+      } else {
+        console.warn('[Hero] API health check failed with status:', response.status);
+      }
+    } catch (error) {
+      console.warn('[Hero] API health check error:', error.message);
     }
   };
 
@@ -59,6 +127,7 @@ const Hero = () => {
           muted
           loop
           playsInline
+          preload="metadata"
           className="w-full h-full object-cover brightness-100 contrast-105"
           style={{
             objectFit: 'cover',
@@ -68,9 +137,18 @@ const Hero = () => {
             top: 0,
             left: 0,
           }}
+          key={heroVideo?.videoUrl || 'default'}
+          onError={() => {
+            console.warn('Video element failed to load');
+            setVideoLoadError(true);
+          }}
+          onLoadedMetadata={() => {
+            console.log('Video metadata loaded successfully');
+            setVideoLoadError(false);
+          }}
         >
           <source 
-            src={heroVideo?.videoUrl || 'https://res.cloudinary.com/dycvh4ct7/video/upload/v1745032365/courousel-hero.mp4'} 
+            src={heroVideo?.videoUrl || 'https://www.w3schools.com/html/mov_bbb.mp4'} 
             type="video/mp4" 
           />
           Your browser does not support the video tag.

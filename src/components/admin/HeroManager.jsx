@@ -10,6 +10,7 @@ const HeroManager = () => {
   const [previewUrl, setPreviewUrl] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [videoLoadError, setVideoLoadError] = useState(false);
 
   useEffect(() => {
     fetchHeroVideo();
@@ -17,7 +18,11 @@ const HeroManager = () => {
 
   const fetchHeroVideo = async () => {
     try {
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/hero/video');
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
+        : 'http://localhost:5000/api/hero/video';
+      
+      const response = await fetch(apiUrl);
       const result = await response.json();
       if (result.success) {
         setHeroVideo(result.data);
@@ -58,12 +63,16 @@ const HeroManager = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/hero/video', {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
+        : 'http://localhost:5000/api/hero/video';
+      
+      const response = await fetch(apiUrl, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
         'Accept': 'application/json',
-        'Origin': 'https://dsquare-backend-dygo.onrender.com'
+        'Origin': 'http://localhost:5000'
         },
         body: formData,
       });
@@ -96,12 +105,16 @@ const HeroManager = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/hero/video/${heroVideo._id}`, {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? `https://dsquare-backend-dygo.onrender.com/api/hero/video/${heroVideo._id}`
+        : `http://localhost:5000/api/hero/video/${heroVideo._id}`;
+      
+      const response = await fetch(apiUrl, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Accept': 'application/json',
-          'Origin': 'https://dsquare-backend-dygo.onrender.com'
+          'Origin': 'http://localhost:5000'
         }
       });
 
@@ -163,10 +176,19 @@ const HeroManager = () => {
               <div>
                 <video 
                   src={heroVideo.videoUrl} 
-                  className="w-full max-w-md rounded-lg shadow-lg"
+                  className="w-full max-w-md rounded-lg shadow-lg bg-slate-900"
                   controls
                   preload="metadata"
-                />
+                  onError={() => setVideoLoadError(true)}
+                  onLoadedMetadata={() => setVideoLoadError(false)}
+                >
+                  Your browser does not support the video tag.
+                </video>
+                {videoLoadError && (
+                  <div className="mt-2 text-sm text-yellow-400 bg-yellow-900 bg-opacity-30 p-2 rounded">
+                    ⚠️ Video preview unavailable. Upload a valid video file to replace it.
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex gap-4 mt-4">
