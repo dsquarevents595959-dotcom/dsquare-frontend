@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import heroVideo from './courousel-hero.mp4';
 import DsquareLogo from './DsquareLogo';
 // import BookingForm from '../booking/BookingForm';
 
 const Hero = () => {
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [heroVideo, setHeroVideo] = useState(null);
   const videoRef = useRef(null);
+
+  // Fetch hero video from API
+  useEffect(() => {
+    fetchHeroVideo();
+  }, []);
 
   // Ensure video plays properly on mobile devices
   useEffect(() => {
@@ -28,6 +33,22 @@ const Hero = () => {
     }
   }, []);
 
+  const fetchHeroVideo = async () => {
+    try {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
+        : 'http://localhost:5000/api/hero/video';
+      
+      const response = await fetch(apiUrl);
+      const result = await response.json();
+      if (result.success) {
+        setHeroVideo(result.data);
+      }
+    } catch (error) {
+      console.error('Error fetching hero video:', error);
+    }
+  };
+
   return (
     <section className="relative hero-min-height flex items-center justify-center text-white overflow-hidden">
       {/* Video Background */}
@@ -49,7 +70,7 @@ const Hero = () => {
           }}
         >
           <source 
-            src={heroVideo} 
+            src={heroVideo?.videoUrl || 'https://res.cloudinary.com/dycvh4ct7/video/upload/v1745032365/courousel-hero.mp4'} 
             type="video/mp4" 
           />
           Your browser does not support the video tag.

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   FaSignOutAlt,
-  FaCog
+  FaCog,
+  FaVideo
 } from 'react-icons/fa';
 import ServiceCategoryManager from './ServiceCategoryManager';
+import HeroManager from './HeroManager';
 
 const AdminDashboard = () => {
   const [adminInfo, setAdminInfo] = useState(null);
@@ -67,12 +69,15 @@ const AdminDashboard = () => {
 
   const sidebarItems = [
     { id: 'categories', label: 'Manage Categories', icon: FaCog },
+    { id: 'hero', label: 'Hero Video', icon: FaVideo },
   ];
 
   const renderContent = () => {
     switch (activeSection) {
       case 'categories':
         return <ServiceCategoryManager />;
+      case 'hero':
+        return <HeroManager />;
 
       default:
         return (
