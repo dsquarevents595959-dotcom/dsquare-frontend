@@ -42,7 +42,7 @@ const Hero = () => {
         ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
         : 'http://localhost:5000/api/hero/video';
       
-      console.log('[Hero] Fetching hero video from:', apiUrl);
+      // console.log('[Hero] Fetching hero video from:', apiUrl);
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
       
@@ -57,10 +57,10 @@ const Hero = () => {
       
       clearTimeout(timeoutId);
       
-      console.log('[Hero] API response status:', response.status, response.statusText);
+      // console.log('[Hero] API response status:', response.status, response.statusText);
       
       if (!response.ok) {
-        console.warn(`[Hero] Hero video API returned ${response.status} ${response.statusText}. Using fallback video.`);
+        // console.warn(`[Hero] Hero video API returned ${response.status} ${response.statusText}. Using fallback video.`);
         const errorText = await response.text();
         console.warn('[Hero] Error response body:', errorText);
         
@@ -72,10 +72,10 @@ const Hero = () => {
       }
       
       const result = await response.json();
-      console.log('[Hero] API response received:', result.success);
+      // console.log('[Hero] API response received:', result.success);
       
       if (result.success && result.data) {
-        console.log('[Hero] Hero video loaded successfully');
+        // console.log('[Hero] Hero video loaded successfully');
         setHeroVideo(result.data);
       } else {
         console.warn('[Hero] Invalid hero video response. Using fallback.');
@@ -100,7 +100,7 @@ const Hero = () => {
         ? 'https://dsquare-backend-dygo.onrender.com/api/hero/health'
         : 'http://localhost:5000/api/hero/health';
       
-      console.log('[Hero] Testing API health at:', apiUrl);
+      // console.log('[Hero] Testing API health at:', apiUrl);
       const response = await fetch(apiUrl, { 
         method: 'GET',
         headers: { 'Accept': 'application/json' }
@@ -108,7 +108,7 @@ const Hero = () => {
       
       if (response.ok) {
         const data = await response.json();
-        console.log('[Hero] API health check passed:', data);
+        // console.log('[Hero] API health check passed:', data);
       } else {
         console.warn('[Hero] API health check failed with status:', response.status);
       }
@@ -143,7 +143,7 @@ const Hero = () => {
             setVideoLoadError(true);
           }}
           onLoadedMetadata={() => {
-            console.log('Video metadata loaded successfully');
+            // console.log('Video metadata loaded successfully');
             setVideoLoadError(false);
           }}
         >
