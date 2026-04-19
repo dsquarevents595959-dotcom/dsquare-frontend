@@ -26,6 +26,14 @@ const ServiceCategoryManager = () => {
     { id: 'dj-lighting-visual', name: 'DJ & Lighting & Visual', icon: '🎵' }
   ];
 
+  // Helper function to get API URL based on environment
+  const getApiUrl = (endpoint) => {
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://dsquare-backend-dygo.onrender.com'
+      : 'http://localhost:5000';
+    return `${baseUrl}${endpoint}`;
+  };
+
   useEffect(() => {
     fetchCategories();
     fetchServiceCards(activeCategory);
@@ -33,7 +41,7 @@ const ServiceCategoryManager = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/categories/overview');
+      const response = await fetch(getApiUrl('/api/service-cards/categories/overview'));
       
       if (!response.ok) {
         console.error('Failed to fetch categories:', response.status);
@@ -52,7 +60,7 @@ const ServiceCategoryManager = () => {
   const fetchServiceCards = async (category) => {
     try {
       setLoading(true);
-      const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${category}`);
+      const response = await fetch(getApiUrl(`/api/service-cards/${category}`));
       
       if (!response.ok) {
         console.error('Failed to fetch service cards:', response.status);
@@ -87,7 +95,7 @@ const ServiceCategoryManager = () => {
     uploadFormData.append('sortOrder', formData.sortOrder);
 
     try {
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards', {
+      const response = await fetch(getApiUrl('/api/service-cards'), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -139,7 +147,7 @@ const ServiceCategoryManager = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${cardId}`, {
+      const response = await fetch(getApiUrl(`/api/service-cards/${cardId}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -197,7 +205,7 @@ const ServiceCategoryManager = () => {
           uploadFormData.append('parentCardId', formData.parentCardId);
           uploadFormData.append('sortOrder', formData.sortOrder);
 
-          const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${editingCard._id}`, {
+          const response = await fetch(getApiUrl(`/api/service-cards/${editingCard._id}`), {
             method: 'PUT',
             headers: {
               'Authorization': `Bearer ${token}`
@@ -216,7 +224,7 @@ const ServiceCategoryManager = () => {
           }
         } else {
           // Update metadata only (no new file)
-          const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${editingCard._id}`, {
+          const response = await fetch(getApiUrl(`/api/service-cards/${editingCard._id}`), {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -248,44 +256,26 @@ const ServiceCategoryManager = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
-      <div className="max-w-7xl pt-9 mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Manage Service Categories</h1>
+    <div className="min-h-screen bg-slate-950 text-white p-4 lg:p-6">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center lg:text-left">Manage Services Categories</h1>
         
         {/* Category Tabs */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-6 lg:mb-8">
           {serviceCategories.map((category) => (
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-medium transition-colors text-sm lg:text-base ${
                 activeCategory === category.id
                   ? 'bg-red-600 text-white'
                   : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
               }`}
             >
-              <span className="mr-2">{category.icon}</span>
-              {category.name}
+              <span className="mr-1 lg:mr-2">{category.icon}</span>
+              <span className="hidden sm:inline">{category.name}</span>
+              <span className="sm:hidden">{category.name.split(' ')[0]}</span>
             </button>
-          ))}
-        </div>
-
-        {/* Category Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-          {categories.map((cat) => (
-            <div
-              key={cat._id}
-              onClick={() => setActiveCategory(cat._id)}
-              className={`p-4 rounded-lg border cursor-pointer transition-colors ${
-                activeCategory === cat._id
-                  ? 'bg-slate-800 border-red-500'
-                  : 'bg-slate-900 border-slate-700 hover:border-slate-600'
-              }`}
-            >
-              <p className="text-2xl font-bold text-white">{cat.count}</p>
-              <p className="text-sm text-slate-400 capitalize">{cat._id}</p>
-              <p className="text-xs text-green-400">{cat.activeCount} active</p>
-            </div>
           ))}
         </div>
 

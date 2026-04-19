@@ -21,8 +21,8 @@ import Entertainment from "./components/services/Entertainment";
 import Stalls from "./components/services/Stalls";
 import FoodStalls from "./components/services/FoodStalls";
 import DjLightingVisual from "./components/services/DjLightingVisual";
-import AdminLogin from "./components/admin/AdminLogin";
-import AdminDashboard from "./components/admin/AdminDashboard";
+// import AdminLogin from "./components/admin/AdminLogin";
+// import AdminDashboard from "./components/admin/AdminDashboard";
 // import CloudEffects from "./components/services/details/CloudEffects";
 // import LuxuryWedding from "./components/services/details/LuxuryWedding";
 // import GrandEntry from "./components/services/details/GrandEntry";
@@ -64,8 +64,8 @@ const MainSite = () => (
         <Route path="/services/dj-lighting-visual" element={<DjLightingVisual />} />
         <Route path="/services/stalls" element={<Stalls />} />
         <Route path="/services/stalls/food-stalls" element={<FoodStalls />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
+        {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
         {/* <Route path="/events" element={<EventsPage />} /> */}
         {/* <Route
           path="/select-items"

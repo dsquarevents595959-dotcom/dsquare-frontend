@@ -99,7 +99,7 @@ const Services = () => (
               <div className="inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-slate-800 text-white shadow-lg shadow-slate-950/40">
                 {service.icon}
               </div>
-              <h3 className="mt-6 text-xl font-semibold">{service.title}</h3>
+              <h3 className="mt-0 text-xl font-semibold">{service.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-300">{service.description}</p>
               <Link to={service.link} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-red-500">
                 Read More →

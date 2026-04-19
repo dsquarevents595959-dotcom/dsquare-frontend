@@ -170,7 +170,7 @@ const HeroManager = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900 text-white p-8">
+      <div className="min-h-screen bg-slate-900 text-white p-4 lg:p-8">
         <div className="flex items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
         </div>
@@ -179,9 +179,9 @@ const HeroManager = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-8">
+    <div className="min-h-screen bg-slate-900 text-white p-4 lg:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-red-500">Hero Video Management</h1>
+        <h1 className="text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-red-500">Hero Video Management</h1>
         
         {/* Success Message */}
         {success && (
@@ -199,9 +199,9 @@ const HeroManager = () => {
 
         {/* Current Hero Video */}
         {heroVideo && (
-          <div className="bg-slate-800 rounded-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-red-400">Current Hero Video</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-slate-800 rounded-lg p-4 lg:p-6 mb-8">
+            <h2 className="text-lg lg:text-xl font-semibold mb-4 text-red-400">Current Hero Video</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
               <div>
                 <p className="text-sm text-slate-300 mb-2">Title: {heroVideo.videoTitle}</p>
                 <p className="text-sm text-slate-300 mb-2">Uploaded: {new Date(heroVideo.uploadedAt).toLocaleDateString()}</p>
@@ -210,7 +210,7 @@ const HeroManager = () => {
               <div>
                 <video 
                   src={heroVideo.videoUrl} 
-                  className="w-full max-w-md rounded-lg shadow-lg bg-slate-900"
+                  className="w-full max-w-full lg:max-w-md rounded-lg shadow-lg bg-slate-900"
                   controls
                   preload="metadata"
                   onError={() => setVideoLoadError(true)}
@@ -219,13 +219,13 @@ const HeroManager = () => {
                   Your browser does not support the video tag.
                 </video>
                 {videoLoadError && (
-                  <div className="mt-2 text-sm text-yellow-400 bg-yellow-900 bg-opacity-30 p-2 rounded">
-                    ⚠️ Video preview unavailable. Upload a valid video file to replace it.
+                  <div className="mt-2 text-xs lg:text-sm text-yellow-400 bg-yellow-900 bg-opacity-30 p-2 rounded">
+                    &#x26a0; Video preview unavailable. Upload a valid video file to replace it.
                   </div>
                 )}
               </div>
             </div>
-            <div className="flex gap-4 mt-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4">
               <button
                 onClick={handleDelete}
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
