@@ -20,6 +20,10 @@ const ReadMore = () => {
     }
   }, [category]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [category]);
+
   const fetchCategoryCards = async () => {
     try {
       setLoading(true);
@@ -67,7 +71,7 @@ const ReadMore = () => {
           </div>
 
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 pt-5">
               {categoryTitles[category] || category}
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
