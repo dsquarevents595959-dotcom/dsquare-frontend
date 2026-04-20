@@ -35,7 +35,7 @@ const services = [
     link: '/readmore/dj-lighting-visual'
   },
   {
-    id: 'Enterainment',
+    id: 'Entertainment',
     icon: <GiFireworkRocket className="text-4xl text-red-500" />,
     title: 'Entertainment',
     description: 'Beautifully planned engagement ceremonies with personalized decor and charm.',
