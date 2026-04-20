@@ -177,8 +177,8 @@ const ReadMore = () => {
           />
         </div>
 
-        <div className="mt-10 max-w-4xl space-y-6">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+        <div className="mt-10 max-w-4xl mx-auto space-y-6">
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-center">
             Inspiring Moments, Flawlessly Executed Events
           </h1>
           <p className="text-lg leading-9 text-slate-300">
