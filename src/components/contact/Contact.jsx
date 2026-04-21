@@ -24,6 +24,7 @@ const Contact = () => {
           <Link
             to="/contact"
             className="inline-flex items-center justify-center mt-8 rounded-full bg-yellow-500 px-8 py-3 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-yellow-600 hover:shadow-xl group"
+            onClick={() => window.scrollTo(0, 0)}
           >
             Ask a Question <FaArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1 group-hover:rotate-45" />
           </Link>
