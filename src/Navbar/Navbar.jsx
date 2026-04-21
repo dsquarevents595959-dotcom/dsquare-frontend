@@ -99,14 +99,14 @@ const Navbar = () => {
       <div className="flex flex-col sm:flex-row bg-black text-white text-xs sm:text-sm py-2 px-3 sm:px-6 justify-center items-center gap-2 sm:gap-4 lg:gap-8 flex-wrap">
         <a href="tel:+917032619629" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
           <FaPhoneAlt className="text-yellow-500" />
-          <span>+91 7032619629</span>
+          <span>+91 7075619629</span>
         </a>
         <div className="hidden md:flex items-center gap-2">
           <span>|</span>
         </div>
-        <a href="mailto:dsquarevents595959@gmail.com" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
+        <a href="mailto:dinesh@dsquarevents.com" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
           <span>📧</span>
-          <span>dsquarevents595959@gmail.com</span>
+          <span>dinesh@dsquarevents.com</span>
         </a>
         <div className="hidden lg:flex items-center gap-2">
           <span>|</span>

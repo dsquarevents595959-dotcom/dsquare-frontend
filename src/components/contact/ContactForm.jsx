@@ -99,7 +99,7 @@ const ContactForm = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 px-1">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-yellow-500">Contact Us</p>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-slate-900">Get in Touch with Us</h2>
+          <h2 className="mt-10 text-3xl sm:text-4xl font-bold text-slate-900">Get in Touch with Us</h2>
           <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
             We'd love to hear from you. Whether you have questions, feedback, or partnership ideas—our team is here to help. Reach out and we'll get back to you as soon as possible.
           </p>

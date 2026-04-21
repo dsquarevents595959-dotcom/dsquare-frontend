@@ -73,7 +73,7 @@ const Reviews = () => {
   const review = reviews[current];
 
   return (
-    <section id="reviews" className="py-16 bg-slate-100 text-slate-900 overflow-hidden">
+    <section id="reviews" className="bg-green-200 py-16 bg-slate-100 text-slate-900 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="mx-auto mb-12 max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-yellow-500">Excellent</p>

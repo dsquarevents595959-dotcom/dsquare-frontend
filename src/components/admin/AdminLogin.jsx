@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaLock, FaEnvelope, FaSignInAlt } from 'react-icons/fa';
+import { FaLock, FaEnvelope, FaSignInAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,7 @@ const AdminLogin = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -61,7 +62,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-blue-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-red-500">
@@ -110,14 +111,25 @@ const AdminLogin = () => {
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-lg relative block w-full pl-10 pr-3 py-3 border border-slate-700 bg-slate-900 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="appearance-none rounded-lg relative block w-full pl-10 pr-12 py-3 border border-slate-700 bg-slate-900 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="Password"
                   value={formData.password}
                   onChange={handleChange}
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-auto"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="h-5 w-5 text-slate-500 hover:text-slate-400" />
+                  ) : (
+                    <FaEye className="h-5 w-5 text-slate-500 hover:text-slate-400" />
+                  )}
+                </button>
               </div>
             </div>
           </div>

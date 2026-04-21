@@ -13,7 +13,7 @@ import {
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-12 bg-slate-50 text-slate-900">
+    <section id="contact" className="bg-yellow-100 py-12 bg-slate-50 text-slate-900">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center mb-10">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-yellow-500">Contact Us</p>
@@ -23,9 +23,9 @@ const Contact = () => {
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center mt-8 rounded-full bg-yellow-500 px-8 py-3 text-sm font-semibold text-black shadow-lg transition hover:bg-yellow-600"
+            className="inline-flex items-center justify-center mt-8 rounded-full bg-yellow-500 px-8 py-3 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-yellow-600 hover:shadow-xl group"
           >
-            Ask a Question <FaArrowRight className="ml-2" />
+            Ask a Question <FaArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1 group-hover:rotate-45" />
           </Link>
         </div>
 
@@ -38,7 +38,7 @@ const Contact = () => {
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 rounded-full bg-yellow-500 p-3 flex items-center justify-center">
+                <div className="flex-shrink-0 rounded-full bg-violet-500 p-3 flex items-center justify-center">
                   <FaMapMarkerAlt className="text-white text-2xl sm:text-3xl" />
                 </div>
                 <div>
@@ -48,7 +48,7 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 rounded-full bg-yellow-500 p-3 flex items-center justify-center">
+                <div className="flex-shrink-0 rounded-full bg-blue-500 p-3 flex items-center justify-center">
                   <FaPhone className="text-white text-2xl sm:text-3xl" />
                 </div>
                 <div>
@@ -58,12 +58,12 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 rounded-full bg-yellow-500 p-3 flex items-center justify-center">
+                <div className="flex-shrink-0 rounded-full bg-orange-600 p-3 flex items-center justify-center">
                   <FaEnvelope className="text-white text-2xl sm:text-3xl" />
                 </div>
                 <div>
                   <h4 className="font-semibold">Email</h4>
-                  <p className="text-gray-600">dsquarevents595959@gmail.com</p>
+                  <p className="text-gray-600">dinesh@dsquarevents.com</p>
                 </div>
               </div>
             </div>
@@ -74,21 +74,27 @@ const Contact = () => {
             <p className="text-gray-300 mb-6">
               Our team is ready to answer your questions and help you plan the perfect event.
             </p>
-            <div className="flex flex-wrap gap-4 sm:gap-6">
+            <div className="flex flex-wrap gap-4 sm:gap-6 ">
               <a href="https://www.facebook.com/share/1AzLuChNq1/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
-                <FaFacebook className="text-xl sm:text-2xl" />
+                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-blue-500 text-white hover:bg-yellow-600 transition-colors">
+                <FaFacebook className="text-xl sm:text-2xl " />
               </a>
               <a href="https://wa.me/917032619629" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
-                <FaWhatsapp className="text-xl sm:text-2xl" />
+                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-green-500 text-white hover:bg-yellow-600 transition-colors">
+                <FaWhatsapp className="text-xl sm:text-2xl " />
               </a>
-              <a href="https://www.instagram.com/dsquare_events_?utm_source=qr&igsh=dWM2YWd2Y2dsaXQ1" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
-                <FaInstagram className="text-xl sm:text-2xl" />
-              </a>
+              <a 
+  href="https://www.instagram.com/dsquare_events_?utm_source=qr&igsh=dWM2YWd2Y2dsaXQ1" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full text-white transition-all duration-300 
+             bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 
+             hover:scale-110 hover:shadow-lg"
+>
+  <FaInstagram className="text-xl sm:text-2xl" />
+</a>
               <a href="https://www.youtube.com/@DSQUARE.EVENTS.DANCE.5959" target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-colors">
+                className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-red-500 text-white hover:bg-yellow-600 transition-colors">
                 <FaYoutube className="text-xl sm:text-2xl" />
               </a>
             </div>
