@@ -17,12 +17,12 @@ const Footer = () => {
     }, 3000);
   };
   return (
-    <footer className="bg-gray-900 text-gray-400 py-10 sm:py-12 border-t border-gray-800">
+    <footer className="bg-purple-900 text-gray-400 py-10 sm:py-12 border-t border-gray-800">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 sm:gap-10">
           <div>
             <h3 className="text-white text-lg font-bold mb-4" style={{ fontFamily: "'Helvatica', 'Arial Black', sans-serif" }}>DSquareEvents</h3>
-            <p className="text-sm leading-relaxed" style={{ fontFamily: "'Helvatica', sans-serif" }}>
+            <p className="text-sm leading-relaxed " style={{ fontFamily: "'Helvatica', sans-serif" }}>
               Dsquarevents is a professional event management service specializing in creating memorable celebrations and experiences.
 We handle everything from planning to execution, including decorations, entertainment, and logistics.
             </p>

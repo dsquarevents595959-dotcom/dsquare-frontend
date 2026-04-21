@@ -370,7 +370,7 @@ const NavbarContent = () => {
   }, [location.state]);
 
   return (
-    <nav className="relative w-full border-b border-gray-200 bg-black px-3 sm:px-6 lg:px-8 py-2 z-50">
+    <nav className="relative w-full border-b border-gray-200 bg-purple-900 px-3 sm:px-6 lg:px-8 py-2 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4 min-h-[3.25rem] sm:min-h-16 relative">
           {/* Logo */}
           <div className="flex h-16 sm:h-20 shrink-0 items-center max-w-[42vw] sm:max-w-none">
