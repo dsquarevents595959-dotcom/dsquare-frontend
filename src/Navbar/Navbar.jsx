@@ -96,7 +96,7 @@ const Navbar = () => {
   return (
     <header className="site-header fixed top-0 left-0 right-0 z-40 flex w-full flex-col bg-white shadow-md">
       {/* Top Info Bar */}
-      <div className="flex flex-col sm:flex-row bg-black text-white text-xs sm:text-sm py-2 px-3 sm:px-6 justify-center items-center gap-2 sm:gap-4 lg:gap-8 flex-wrap">
+      <div className="flex flex-col sm:flex-row bg-purple-900 text-white text-xs sm:text-sm py-2 px-3 sm:px-6 justify-center items-center gap-2 sm:gap-4 lg:gap-8 flex-wrap">
         <a href="tel:+917032619629" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
           <FaPhoneAlt className="text-yellow-500" />
           <span>+91 7075619629</span>
