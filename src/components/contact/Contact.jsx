@@ -42,9 +42,14 @@ const Contact = () => {
     const handleContactInfoUpdate = (event) => {
       console.log('Contact component received contactInfoUpdated event:', event);
       const updatedContactInfo = event.detail;
+      console.log('Updated contact info details:', updatedContactInfo);
       if (updatedContactInfo) {
         console.log('Updating Contact component contact info:', updatedContactInfo);
+        console.log('Previous contact info:', contactInfo);
         setContactInfo(updatedContactInfo);
+        console.log('Contact info updated successfully');
+      } else {
+        console.log('No contact info data received in event');
       }
     };
 
