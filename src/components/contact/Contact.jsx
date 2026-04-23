@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaMapMarkerAlt,
@@ -12,6 +12,50 @@ import {
 } from 'react-icons/fa';
 
 const Contact = () => {
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+91 7032619629',
+    email: 'dinesh@dsquarevents.com',
+    address: '2nd floor, Ganesh Rd poojitha residency, D. No- #61-22/1-1, beside janasena party office, near padavalarevu, ramalingeswaranagar, Vijayawada, Andhra Pradesh 520013',
+    facebook: 'https://www.facebook.com/share/1AzLuChNq1/',
+    whatsapp: 'https://wa.me/917032619629',
+    instagram: 'https://www.instagram.com/dsquare_events_?utm_source=qr&igsh=dWM2YWd2Y2dsaXQ1',
+    youtube: 'https://www.youtube.com/@DSQUARE.EVENTS.DANCE.5959'
+  });
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://dsquare-backend-dygo.onrender.com' : 'http://localhost:5000'}/api/contact/info`);
+        const data = await response.json();
+        if (data.success && data.data) {
+          setContactInfo(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    // Initial fetch
+    fetchContactInfo();
+
+    // Listen for contact info updates from admin
+    const handleContactInfoUpdate = (event) => {
+      console.log('Contact component received contactInfoUpdated event:', event);
+      const updatedContactInfo = event.detail;
+      if (updatedContactInfo) {
+        console.log('Updating Contact component contact info:', updatedContactInfo);
+        setContactInfo(updatedContactInfo);
+      }
+    };
+
+    window.addEventListener('contactInfoUpdated', handleContactInfoUpdate);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('contactInfoUpdated', handleContactInfoUpdate);
+    };
+  }, []);
+
   return (
     <section id="contact" className="bg-yellow-100 py-12 bg-slate-50 text-slate-900">
       <div className="container mx-auto px-4 sm:px-6">
@@ -38,23 +82,14 @@ const Contact = () => {
             </p>
 
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 rounded-full bg-violet-500 p-3 flex items-center justify-center">
-                  <FaMapMarkerAlt className="text-white text-2xl sm:text-3xl" />
-                </div>
-                <div>
-                  <h4 className="font-semibold">Our Location</h4>
-                  <p className="text-gray-600">2nd floor, Ganesh Rd poojitha residency, D. No- #61-22/1-1, beside janasena party office, near padavalarevu, ramalingeswaranagar, Vijayawada, Andhra Pradesh 520013</p>
-                </div>
-              </div>
-
+              
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 rounded-full bg-blue-500 p-3 flex items-center justify-center">
                   <FaPhone className="text-white text-2xl sm:text-3xl" />
                 </div>
                 <div>
                   <h4 className="font-semibold">Phone</h4>
-                  <p className="text-gray-600">+91 7032619629</p>
+                  <p className="text-gray-600">{contactInfo.phone}</p>
                 </div>
               </div>
 
@@ -64,7 +99,17 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold">Email</h4>
-                  <p className="text-gray-600">dinesh@dsquarevents.com</p>
+                  <p className="text-gray-600">{contactInfo.email}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 rounded-full bg-purple-600 p-3 flex items-center justify-center">
+                  <FaMapMarkerAlt className="text-white text-2xl sm:text-3xl" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Address</h4>
+                  <p className="text-gray-600">{contactInfo.address}</p>
                 </div>
               </div>
             </div>
@@ -76,16 +121,16 @@ const Contact = () => {
               Our team is ready to answer your questions and help you plan the perfect event.
             </p>
             <div className="flex flex-wrap gap-4 sm:gap-6 ">
-              <a href="https://www.facebook.com/share/1AzLuChNq1/" target="_blank" rel="noopener noreferrer"
+              <a href={contactInfo.facebook} target="_blank" rel="noopener noreferrer"
                 className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-blue-500 text-white hover:bg-yellow-600 transition-colors">
                 <FaFacebook className="text-xl sm:text-2xl " />
               </a>
-              <a href="https://wa.me/917032619629" target="_blank" rel="noopener noreferrer"
+              <a href={contactInfo.whatsapp} target="_blank" rel="noopener noreferrer"
                 className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-green-500 text-white hover:bg-yellow-600 transition-colors">
                 <FaWhatsapp className="text-xl sm:text-2xl " />
               </a>
               <a 
-  href="https://www.instagram.com/dsquare_events_?utm_source=qr&igsh=dWM2YWd2Y2dsaXQ1" 
+  href={contactInfo.instagram}
   target="_blank" 
   rel="noopener noreferrer"
   className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full text-white transition-all duration-300 
@@ -94,7 +139,7 @@ const Contact = () => {
 >
   <FaInstagram className="text-xl sm:text-2xl" />
 </a>
-              <a href="https://www.youtube.com/@DSQUARE.EVENTS.DANCE.5959" target="_blank" rel="noopener noreferrer"
+              <a href={contactInfo.youtube} target="_blank" rel="noopener noreferrer"
                 className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-red-500 text-white hover:bg-yellow-600 transition-colors">
                 <FaYoutube className="text-xl sm:text-2xl" />
               </a>

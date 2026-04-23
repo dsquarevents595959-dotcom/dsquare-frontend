@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 // import Detail from "./components/common/Detail";
 import Navbar from "./Navbar/Navbar";
 import Hero from "./components/hero/Hero";
@@ -33,76 +33,83 @@ import DjLightingVisual from "./components/services/DjLightingVisual";
 // import ThankYou from "./components/booking/ThankYou";
 import ScrollToTop from "./components/common/ScrollToTop";
 
-const MainSite = () => (
-  <>
-    <Navbar />
-    <main className="flex-grow">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <About />
-              {/* <ExecutiveTeam /> */}
-              {/* <Products /> */}
-              <Services />
-              {/* <Gallery /> */}
-              <Reviews />
-              {/* <FAQSection /> */}
-              <Contact />
-            </>
-          }
-        />
-        <Route path="/contact" element={<ContactForm />} />
-        <Route path="/readmore" element={<ReadMore />} />
-        <Route path="/readmore/:category" element={<ReadMore />} />
-        <Route path="/services/Weddings" element={<Weddings />} />
-        <Route path="/services/birthdays" element={<Birthdays />} />
-        <Route path="/services/grand-entry" element={<GrandEntry />} />
-        <Route path="/services/entertainment" element={<Entertainment />} />
-        <Route path="/services/dj-lighting-visual" element={<DjLightingVisual />} />
-        <Route path="/services/stalls" element={<Stalls />} />
-        <Route path="/services/stalls/food-stalls" element={<FoodStalls />} />
-        {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
-        {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
-        {/* <Route path="/events" element={<EventsPage />} /> */}
-        {/* <Route
-          path="/select-items"
-          element={
-            <div className="min-h-[calc(100vh-4rem)]">
-              <ItemSelection />
-            </div>
-          }
+const MainSite = () => {
+  const location = useLocation();
+  
+  // Check if current path is a readmore route
+  const isReadMoreRoute = location.pathname.startsWith('/readmore');
+  
+  return (
+    <>
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <About />
+                {/* <ExecutiveTeam /> */}
+                {/* <Products /> */}
+                <Services />
+                {/* <Gallery /> */}
+                <Reviews />
+                {/* <FAQSection /> */}
+                <Contact />
+              </>
+            }
+          />
+          <Route path="/contact" element={<ContactForm />} />
+          <Route path="/readmore" element={<ReadMore />} />
+          <Route path="/readmore/:category" element={<ReadMore />} />
+          <Route path="/services/Weddings" element={<Weddings />} />
+          <Route path="/services/birthdays" element={<Birthdays />} />
+          <Route path="/services/grand-entry" element={<GrandEntry />} />
+          <Route path="/services/entertainment" element={<Entertainment />} />
+          <Route path="/services/dj-lighting-visual" element={<DjLightingVisual />} />
+          <Route path="/services/stalls" element={<Stalls />} />
+          <Route path="/services/stalls/food-stalls" element={<FoodStalls />} />
+          {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
+          {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
+          {/* <Route path="/events" element={<EventsPage />} /> */}
+          {/* <Route
+            path="/select-items"
+            element={
+              <div className="min-h-[calc(100vh-4rem)]">
+                <ItemSelection />
+              </div>
+            }
+          /> */}
+          {/* <Route path="/services/cloud-effects" element={<CloudEffects />} />
+          <Route path="/services/luxury-wedding" element={<LuxuryWedding />} />
+          <Route path="/services/grand-entry" element={<GrandEntry />} />
+          <Route path="/services/venue-decoration" element={<VenueDecoration />} />
+          <Route path="/services/fireworks" element={<Fireworks />} />
+          <Route path="/services/sound-light-visual" element={<SoundLightVisual />} /> */}
+          {/* <Route
+            path="/events/:eventId"
+            element={
+              <div className="bg-white">
+                <EventsPage />
+              </div>
+            }
+          /> */}
+          {/* <Route
+            path="/thank-you"
+            element={
+              <div className="min-h-[calc(100vh-4rem)] bg-yellow-50">
+                <ThankYou />
+              </div>
+            }
         /> */}
-        {/* <Route path="/services/cloud-effects" element={<CloudEffects />} />
-        <Route path="/services/luxury-wedding" element={<LuxuryWedding />} />
-        <Route path="/services/grand-entry" element={<GrandEntry />} />
-        <Route path="/services/venue-decoration" element={<VenueDecoration />} />
-        <Route path="/services/fireworks" element={<Fireworks />} />
-        <Route path="/services/sound-light-visual" element={<SoundLightVisual />} /> */}
-        {/* <Route
-          path="/events/:eventId"
-          element={
-            <div className="bg-white">
-              <EventsPage />
-            </div>
-          }
-        /> */}
-        {/* <Route
-          path="/thank-you"
-          element={
-            <div className="min-h-[calc(100vh-4rem)] bg-yellow-50">
-              <ThankYou />
-            </div>
-          }
-        /> */}
-      </Routes>
-    </main>
-    <Footer />
-    {/* <Detail /> */}
-    <ScrollToTop />
-  </>
-);
+        </Routes>
+      </main>
+      {!isReadMoreRoute && <Footer />}
+      {/* <Detail /> */}
+      <ScrollToTop />
+    </>
+  );
+};
 
 export default MainSite;

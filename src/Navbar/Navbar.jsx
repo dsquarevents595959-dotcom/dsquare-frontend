@@ -93,20 +93,79 @@ const MarqueeText = () => {
 };
 
 const Navbar = () => {
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+91 7032619629',
+    email: 'dinesh@dsquarevents.com'
+  });
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const apiUrl = `${process.env.NODE_ENV === 'production' ? 'https://dsquare-backend-dygo.onrender.com' : 'http://localhost:5000'}/api/contact/info`;
+        console.log('Fetching contact info from:', apiUrl);
+        
+        const response = await fetch(apiUrl);
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('API Error:', response.status, errorText);
+          return;
+        }
+        
+        const data = await response.json();
+        console.log('Response data:', data);
+        
+        if (data.success && data.data) {
+          setContactInfo({
+            phone: data.data.phone,
+            email: data.data.email
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    // Initial fetch
+    fetchContactInfo();
+
+    // Listen for contact info updates from admin
+    const handleContactInfoUpdate = (event) => {
+      console.log('Navbar received contactInfoUpdated event:', event);
+      const updatedContactInfo = event.detail;
+      if (updatedContactInfo) {
+        console.log('Updating Navbar contact info:', updatedContactInfo);
+        setContactInfo({
+          phone: updatedContactInfo.phone,
+          email: updatedContactInfo.email
+        });
+      }
+    };
+
+    window.addEventListener('contactInfoUpdated', handleContactInfoUpdate);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('contactInfoUpdated', handleContactInfoUpdate);
+    };
+  }, []);
+
   return (
     <header className="site-header fixed top-0 left-0 right-0 z-40 flex w-full flex-col bg-white shadow-md">
       {/* Top Info Bar */}
       <div className="flex flex-col sm:flex-row bg-purple-900 text-white text-xs sm:text-sm py-2 px-3 sm:px-6 justify-center items-center gap-2 sm:gap-4 lg:gap-8 flex-wrap">
-        <a href="tel:+917032619629" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
+        <a href={`tel:${contactInfo.phone}`} className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
           <FaPhoneAlt className="text-yellow-500" />
-          <span>+91 7075619629</span>
+          <span>{contactInfo.phone}</span>
         </a>
         <div className="hidden md:flex items-center gap-2">
           <span>|</span>
         </div>
-        <a href="mailto:dinesh@dsquarevents.com" className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
+        <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-2 hover:text-yellow-400 transition-colors">
           <span>📧</span>
-          <span>dinesh@dsquarevents.com</span>
+          <span>{contactInfo.email}</span>
         </a>
         <div className="hidden lg:flex items-center gap-2">
           <span>|</span>

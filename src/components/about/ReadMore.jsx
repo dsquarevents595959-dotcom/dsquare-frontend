@@ -63,7 +63,7 @@ const ReadMore = () => {
     return (
       <main className="min-h-[calc(100vh-4rem)] bg-slate-950 text-white">
         <div className="container mx-auto px-4 py-12 sm:px-6 sm:py-16">
-          <div className="mb-8">
+          <div className="mt-20">
             <Link to="/#services" className="inline-flex items-center gap-2 text-red-500 hover:text-red-400 transition-colors">
               <FaArrowLeft />
               Back to Services
@@ -173,7 +173,7 @@ const ReadMore = () => {
           <p className="text-sm uppercase tracking-[0.35em] text-red-500">Read More</p>
         </div>
 
-        <div className="overflow-hidden rounded-[32px] border border-white/10 shadow-2xl">
+        <div className="mt-8 overflow-hidden rounded-[32px] border border-white/10 shadow-2xl">
           <img
             src={Logo1}
             alt="Event celebration"
@@ -181,20 +181,20 @@ const ReadMore = () => {
           />
         </div>
 
-        <div className="mt-10 max-w-4xl mx-auto space-y-6">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-center">
+        <div className="mt-10 w-full px-4 sm:px-6 lg:px-8 space-y-6">
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl text-center">
             Inspiring Moments, Flawlessly Executed Events
           </h1>
-          <p className="text-lg leading-9 text-slate-300">
+          <p className="text-lg leading-7 text-slate-300 text-justify">
             At D Square Events, we transform your vision into reality with expert event management. From creative concept design to meticulous planning and flawless execution, we create extraordinary experiences tailored to your unique needs.
           </p>
-          <p className="text-lg leading-9 text-slate-300">
+          <p className="text-lg leading-7 text-slate-300 text-justify">
             Our team works with you every step of the way to build immersive celebrations that leave a lasting impression. Whether it's a wedding, corporate gala, or private party, we ensure your event feels seamless, elevated, and perfectly aligned with your brand.
           </p>
-          <p className="text-lg leading-9 text-slate-300">
+          <p className="text-lg leading-7 text-slate-300 text-justify">
             With over a decade of experience in event production, we manage every detail—from décor and entertainment to logistics and vendor coordination—so you can relax and enjoy the moment.
           </p>
-          <p className="text-lg leading-9 text-slate-300">
+          <p className="text-lg leading-7 text-slate-300 text-justify">
             Our creative teams specialize in stunning visual experiences, custom atmospheres, and unforgettable storytelling through lighting, design, and entertainment.
           </p>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
@@ -30,28 +31,135 @@ We handle everything from planning to execution, including decorations, entertai
           <div>
             <h4 className="text-white font-semibold mb-4" style={{ fontFamily: "'Helvatica', 'Arial Black', sans-serif" }}>Quick Links</h4>
             <ul className="space-y-2" style={{ fontFamily: "'Helvatica', sans-serif" }}>
-              {['Home', 'About Us', 'Services', 'Events', 'Contact'].map((item) => (
-                <li key={item}>
-                  <a 
-                    href={`#${item.toLowerCase().replace(' ', '-')}`}
-                    className="hover:text-yellow-500 transition-colors"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link 
+                  to="/" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/#about-us" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Navigate to home page and scroll to about section
+                    window.location.href = '/#about-us';
+                  }}
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/#services" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = '/#services';
+                  }}
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/#reviews" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = '/#reviews';
+                  }}
+                >
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/#contact" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = '/#contact';
+                  }}
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h4 className="text-white font-semibold mb-4" style={{ fontFamily: "'Helvatica', 'Arial Black', sans-serif" }}>Our Services</h4>
             <ul className="space-y-2" style={{ fontFamily: "'Helvatica', sans-serif" }}>
-              {['Weddings', 'Birthdays', 'Corporate Events', 'Grand Entry', 'DJ, Lighting & Visual','Entertainment','Stalls'].map((service) => (
-                <li key={service}>
-                  <a href="#services" className="hover:text-yellow-500 transition-colors">
-                    {service}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link 
+                  to="/readmore/weddings" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Weddings
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/readmore/birthdays" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Birthdays
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/#services" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = '/#services';
+                  }}
+                >
+                  Corporate Events
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/readmore/grand-entry" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Grand Entry
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/readmore/dj-lighting-visual" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  DJ, Lighting & Visual
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/readmore/entertainment" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Entertainment
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/readmore/stalls" 
+                  className="hover:text-yellow-500 transition-colors"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Stalls
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

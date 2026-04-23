@@ -1,66 +1,98 @@
 import React, { useEffect, useState } from 'react';
 import { FaStar, FaThumbsUp, FaComment, FaShareAlt, FaChevronLeft, FaChevronRight, FaEllipsisV } from 'react-icons/fa';
 
-const reviews = [
-  {
-    name: 'Shivaprasad',
-    date: '02 Feb',
-    rating: 5,
-    quote: 'Very good maintainance',
-    response: 'Thanks for the feedback on upkeep.',
-    avatar: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    name: 'RAJU',
-    date: '04 Feb',
-    rating: 5,
-    quote: 'Good response.',
-    response: 'Thank you so much for positive review',
-    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    name: 'Krishna',
-    date: '04 Feb',
-    rating: 5,
-    quote: 'Good for all events.',
-    response: 'Good to hear, thank you so much for positive response',
-    avatar: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    name: 'Revanth Reddy',
-    date: '08 Apr',
-    rating: 5,
-    quote: 'Excellent Services.',
-    response: 'Thank you so much sir',
-    avatar: 'https://images.unsplash.com/photo-1519264196197-38c14b5f2f62?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    name: 'Sneha Medipalli',
-    date: '02 Feb',
-    rating: 5,
-    quote: 'Simply amazing we had a wonderful experience',
-    response: 'Thank you so much for positive feedback.',
-    avatar: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    name: 'Naji',
-    date: '04 Feb',
-    rating: 5,
-    quote: "Good attitude and good manners and excellent event`s",
-    response: 'Thank you so much for your positive comments',
-    avatar: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-  },
-];
-
 const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const fetchReviews = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://dsquare-backend-dygo.onrender.com' : 'http://localhost:5000'}/api/reviews`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch reviews');
+      }
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setReviews(data.data);
+      } else {
+        setError('Failed to load reviews');
+      }
+    } catch (err) {
+      console.error('Error fetching reviews:', err);
+      setError('Failed to load reviews');
+      
+      // Fallback to default reviews if API fails
+      setReviews([
+        {
+          name: 'Shivaprasad',
+          date: '02 Feb',
+          rating: 5,
+          quote: 'Very good maintainance',
+          response: 'Thanks for the feedback on upkeep.',
+          avatar: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        },
+        {
+          name: 'RAJU',
+          date: '04 Feb',
+          rating: 5,
+          quote: 'Good response.',
+          response: 'Thank you so much for positive review',
+          avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        },
+        {
+          name: 'Krishna',
+          date: '04 Feb',
+          rating: 5,
+          quote: 'Good for all events.',
+          response: 'Good to hear, thank you so much for positive response',
+          avatar: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        },
+        {
+          name: 'Revanth Reddy',
+          date: '08 Apr',
+          rating: 5,
+          quote: 'Excellent Services.',
+          response: 'Thank you so much sir',
+          avatar: 'https://images.unsplash.com/photo-1519264196197-38c14b5f2f62?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        },
+        {
+          name: 'Sneha Medipalli',
+          date: '02 Feb',
+          rating: 5,
+          quote: 'Simply amazing we had a wonderful experience',
+          response: 'Thank you so much for positive feedback.',
+          avatar: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        },
+        {
+          name: 'Naji',
+          date: '04 Feb',
+          rating: 5,
+          quote: "Good attitude and good manners and excellent event`s",
+          response: 'Thank you so much for your positive comments',
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [reviews]);
 
   const goPrevious = () => {
     setCurrent((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
@@ -69,6 +101,75 @@ const Reviews = () => {
   const goNext = () => {
     setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
   };
+
+  if (loading) {
+    return (
+      <section id="reviews" className="bg-green-200 py-16 bg-slate-100 text-slate-900 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-yellow-500">Excellent</p>
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <div className="flex gap-1 text-yellow-500">
+                {[...Array(5)].map((_, index) => (
+                  <FaStar key={index} />
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-slate-700">Loading reviews...</span>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="reviews" className="bg-green-200 py-16 bg-slate-100 text-slate-900 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-yellow-500">Excellent</p>
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <div className="flex gap-1 text-yellow-500">
+                {[...Array(5)].map((_, index) => (
+                  <FaStar key={index} />
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-slate-700">Reviews temporarily unavailable</span>
+            </div>
+          </div>
+          <div className="text-center">
+            <p className="text-slate-600">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!reviews || reviews.length === 0) {
+    return (
+      <section id="reviews" className="bg-green-200 py-16 bg-slate-100 text-slate-900 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-yellow-500">Excellent</p>
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <div className="flex gap-1 text-yellow-500">
+                {[...Array(5)].map((_, index) => (
+                  <FaStar key={index} />
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-slate-700">Loading reviews...</span>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const review = reviews[current];
 
