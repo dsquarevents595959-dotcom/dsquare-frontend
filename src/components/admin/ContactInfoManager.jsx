@@ -76,12 +76,12 @@ const ContactInfoManager = () => {
       });
 
       const data = await response.json();
-      console.log('API response:', data);
-      console.log('Response structure check:', {
-        ok: data.ok,
-        contactInfo: data.contactInfo,
-        message: data.message
-      });
+      // console.log('API response:', data);
+      // console.log('Response structure check:', {
+      //   ok: data.ok,
+      //   contactInfo: data.contactInfo,
+      //   message: data.message
+      // });
 
       if (data.ok) {
         setSuccess('Contact information updated successfully!');

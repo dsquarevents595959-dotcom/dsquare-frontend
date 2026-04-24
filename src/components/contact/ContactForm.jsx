@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { API_URLS, API_BASE } from '../../lib/api';
+// import { API_URLS, API_BASE } from '../../lib/api';
 
 const ContactForm = () => {
   const navigate = useNavigate();

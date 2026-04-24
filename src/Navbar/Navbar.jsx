@@ -39,58 +39,8 @@ import {
   FaShoppingCart
 } from "react-icons/fa";
 import { GiDiamondRing, GiFlowers, GiFireworkRocket } from "react-icons/gi";
-import { API_URLS, fetchApi } from "../lib/api";
 
 import Logo from './Dsquare-logo.png';
-
-const DEFAULT_BANNER =
-  "✨ Book now and get 10% off on all services! Limited time offer: Free decoration with every booking! ✨";
-
-const MarqueeText = () => {
-  const [announcement, setAnnouncement] = useState(DEFAULT_BANNER);
-
-  useEffect(() => {
-    let cancelled = false;
-    const load = () => {
-      fetchApi(API_URLS.CMS_BANNER)
-        .then((data) => {
-          if (!cancelled && data.ok && data.banner?.text?.trim()) {
-            setAnnouncement(data.banner.text.trim());
-          }
-        })
-        .catch(() => {});
-    };
-    load();
-
-    const onStorage = (e) => {
-      if (e.key === "cmsUpdated") load();
-    };
-    const onCmsDataUpdated = () => load();
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("cmsDataUpdated", onCmsDataUpdated);
-    const t = setInterval(load, 60000);
-    return () => {
-      cancelled = true;
-      clearInterval(t);
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("cmsDataUpdated", onCmsDataUpdated);
-    };
-  }, []);
-
-  return (
-    <div className="bg-yellow-500 text-black py-1.5 sm:py-2 overflow-hidden w-full z-50 relative">
-      <div className="whitespace-nowrap w-max">
-        <div className="inline-block whitespace-nowrap animate-marquee">
-          {[...Array(4)].map((_, i) => (
-            <span key={i} className="mx-4 sm:mx-8 text-xs sm:text-sm font-medium">
-              {announcement}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const Navbar = () => {
   const [contactInfo, setContactInfo] = useState({
@@ -133,10 +83,10 @@ const Navbar = () => {
 
     // Listen for contact info updates from admin
     const handleContactInfoUpdate = (event) => {
-      console.log('Navbar received contactInfoUpdated event:', event);
+      // console.log('Navbar received contactInfoUpdated event:', event);
       const updatedContactInfo = event.detail;
       if (updatedContactInfo) {
-        console.log('Updating Navbar contact info:', updatedContactInfo);
+        // console.log('Updating Navbar contact info:', updatedContactInfo);
         setContactInfo({
           phone: updatedContactInfo.phone,
           email: updatedContactInfo.email
@@ -182,14 +132,12 @@ const Navbar = () => {
       </div>
       {/* Divider Line */}
       <div className="h-px bg-white"></div>
-      {/* <MarqueeText /> */}
       <NavbarContent />
     </header>
   );
 };
 
 const NavbarContent = () => {
-  const [showProducts, setShowProducts] = useState(false);
   const [showServices, setShowServices] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -213,7 +161,6 @@ const NavbarContent = () => {
     // Close all dropdowns when toggling menu
     if (menuOpen) {
       setShowAbout(false);
-      setShowProducts(false);
       setShowServices(false);
     }
   };
@@ -233,7 +180,6 @@ const NavbarContent = () => {
 
     if (closeMenu) {
       setShowAbout(false);
-      setShowProducts(false);
       setShowServices(false);
       setMenuOpen(false);
     }
@@ -246,50 +192,8 @@ const NavbarContent = () => {
     }
   };
 
-  const highlightProductCard = (id) => {
-    const card = document.getElementById(`product-${id}`);
-    if (!card) return;
-    
-    // Add highlight effect
-    card.classList.add("ring-4", "ring-yellow-500", "ring-opacity-70", "transition-all", "duration-1000", "shadow-lg", "z-10", "relative");
-    
-    // Scroll to the card with some offset from the top
-    const headerOffset = 100;
-    const elementPosition = card.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
-    
-    // Remove highlight after some time
-    setTimeout(() => {
-      card.classList.remove("ring-4", "ring-yellow-500", "ring-opacity-70", "shadow-lg", "z-10", "relative");
-    }, 3000);
-  };
-
-  const scrollToProductCard = (productId) => {
-    // First navigate to the products section
-    if (location.pathname !== "/") {
-      navigate("/", { state: { scrollTo: productId } });
-    } else {
-      // If already on home page, just scroll to the product
-      const element = document.getElementById(`product-${productId}`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        highlightProductCard(productId);
-      } else {
-        // If product card not found, just scroll to products section
-        scrollToSection("products");
-      }
-    }
-    
-    // Close mobile menu if open
-    setMenuOpen(false);
-    setShowProducts(false);
-  };
-
+  
+  
   const scrollToServiceCard = (serviceId) => {
     // Close the menu and dropdowns
     setMenuOpen(false);
@@ -329,50 +233,6 @@ const NavbarContent = () => {
     }
   };
 
-  // Handle scroll to product when component mounts or location state changes
-  useEffect(() => {
-    if (location.state?.scrollTo) {
-      const productId = location.state.scrollTo;
-      const scrollToElement = () => {
-        const element = document.getElementById(`product-${productId}`);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          highlightProductCard(productId);
-          // Clear the state to prevent re-scrolling
-          window.history.replaceState({}, document.title);
-        } else if (document.readyState === 'complete') {
-          // If document is already loaded but element not found, try one more time after a delay
-          setTimeout(() => {
-            const el = document.getElementById(`product-${productId}`);
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth' });
-              highlightProductCard(productId);
-              window.history.replaceState({}, document.title);
-            }
-          }, 500);
-        }
-      };
-
-      // If products section is not loaded yet, wait for it
-      if (!document.getElementById('products')) {
-        const checkProductsLoaded = setInterval(() => {
-          if (document.getElementById('products')) {
-            clearInterval(checkProductsLoaded);
-            scrollToElement();
-          }
-        }, 100);
-      } else {
-        scrollToElement();
-      }
-    }
-  }, [location.state]);
-
-  const handleCurrentOpeningsClick = () => {
-    setMenuOpen(false);
-    if (location.pathname !== "/careers") navigate("/careers");
-  };
-
-  // Handle scroll to service when component mounts or location state changes
   useEffect(() => {
     if (location.state?.scrollToService) {
       const serviceId = location.state.scrollToService;
@@ -436,7 +296,7 @@ const NavbarContent = () => {
             <Link to="/" className="block leading-none">
               <img
                 src={Logo}
-                alt="AK Events & Fireworks"
+                alt="Dsquare Events"
                 className="h-16 sm:h-20 md:h-24 w-auto object-contain object-left hover:scale-105 transition-transform"
               />
             </Link>
@@ -496,78 +356,7 @@ const NavbarContent = () => {
                 onClick={() => !isDesktop && setShowAbout(!showAbout)}
               />
             </div>
-
-            {/* Dropdown */}
-            {/* <ul
-              className={`top-full rounded-lg border border-gray-100 bg-white p-2 shadow-xl transition-all z-50 w-full lg:absolute lg:left-0 lg:w-56 lg:border-0
-              ${showAbout ? "opacity-100 visible translate-y-0" : "hidden lg:block lg:pointer-events-none lg:opacity-0 lg:invisible lg:-translate-y-3"}`}
-              style={{ zIndex: 1002, maxHeight: "min(60vh, 20rem)", overflowY: "auto" }}
-            >
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToSection("about-us")}>
-                <FaInfoCircle /> About Us
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToSection("executive-team")}>
-                <FaUsers /> Leadership Team
-              </li> */}
-              {/* <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToSection("collaboration")}>
-                <FaHandshake /> Collaboration
-              </li> */}
-              {/* <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToSection("testimonials")}>
-                <FaStar /> Customer Reviews
-              </li> */}
-              {/* <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToSection("faq")}>
-                <FaBookOpen /> FAQs
-              </li>
-            </ul> */}
           </div>
-
-          {/* Products */}
-          {/* <div
-            onMouseEnter={() => isDesktop && setShowProducts(true)}
-            onMouseLeave={() => isDesktop && setShowProducts(false)}
-            className="relative"
-          >
-            <div 
-              onClick={() => !isDesktop && setShowProducts(!showProducts)}
-              className="flex items-center gap-2 cursor-pointer hover:text-green-600 py-2.5 lg:py-1"
-            >
-              <FaBoxOpen /> Products
-              <FaChevronDown className={`transition ${showProducts ? "rotate-180" : ""}`} />
-            </div> */}
-
-            {/* Dropdown */}
-            {/* <ul
-              className={`top-full w-full rounded-lg border border-gray-100 bg-white p-2 shadow-xl transition-all z-50 lg:absolute lg:left-0 lg:w-60 lg:border-0
-              ${showProducts ? "opacity-100 visible translate-y-0" : "hidden lg:block lg:pointer-events-none lg:opacity-0 lg:invisible lg:-translate-y-3"}`}
-              style={{ zIndex: 1002, maxHeight: "min(55vh, 22rem)", overflowY: "auto" }}
-            >
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("sparkcular-machines")}>
-                <FaFireAlt className="text-orange-500" /> sparkcular machines
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("fire-flame-machines")}>
-                <FaFire className="text-red-500" /> fire flame machines
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("co2-jets")}>
-                <FaWind className="text-blue-300" /> co2 jets & liquid jets
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("smoke-bubble-machines")}>
-                <FaCloud className="text-gray-400" /> smoke bubble machines
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("co2-jumbo-paper-machines")}>
-                <FaPaperPlane className="text-blue-400" /> Co2 jumbo paper machines
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("co2-jet")}>
-                <FaBolt className="text-yellow-400" /> Co2 jet
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("cold-fires")}>
-                <FaSnowflake className="text-blue-200" /> cold fires
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToProductCard("smoke-gun")}>
-                <FaSmog className="text-gray-500" /> smoke gun
-              </li>
-            </ul> */}
-          {/* </div> */}
-
           {/* Services */}
           <div
             onMouseEnter={() => isDesktop && setShowServices(true)}
@@ -614,35 +403,9 @@ const NavbarContent = () => {
               <li className="p-2 hover:bg-green-100 text-gray-900 flex items-center gap-2" onClick={() => scrollToServiceCard("sound-light")}>
                 <FaShoppingCart className="text-orange-500" /> Stalls
               </li>
-              {/* <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("data-engineering")}>
-                <FaDatabase /> Data Engineering
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("event-support")}>
-                <FaTools /> Event Support
-              </li>
-              <li className="p-2 hover:bg-green-100 flex items-center gap-2" onClick={() => scrollToServiceCard("software-engineering")}>
-                <FaServer /> Software Engineering
-              </li> */}
             </ul>
           </div>
 
-          {/* Industries */}
-          {/* <li className="flex items-center gap-2 hover:text-green-600 cursor-pointer">
-            <FaIndustry /> Industries
-          </li> */}
-
-          {/* Contact */}
-          {/* <Link
-            to="/contact"
-            className="flex items-center gap-2 rounded-lg py-2.5 hover:text-green-600 cursor-pointer lg:py-1"
-          >
-            <FaPhoneAlt /> Contact Us
-          </Link> */}
-
-          {/* Case Studies */}
-          {/* <li className="flex items-center gap-2 hover:text-green-600 cursor-pointer">
-            <FaBookOpen /> Case Studies
-          </li> */}
           </ul>
         </div>
       </nav>

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import MainSite from "./MainSite";
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminDashboard from "./components/admin/AdminDashboard";
-// import AdminShell from "./admin/AdminShell";
+
 
 function App() {
   return (
@@ -12,7 +12,6 @@ function App() {
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          {/* <Route path="/admin/*" element={<AdminShell />} /> */}
           <Route path="*" element={<MainSite />} />
         </Routes>
       </div>

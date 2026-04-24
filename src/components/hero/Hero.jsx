@@ -12,7 +12,7 @@ const Hero = () => {
   useEffect(() => {
     fetchHeroVideo();
     // Test if API is accessible
-    testApiHealth();
+    // testApiHealth();
   }, []);
 
   // Ensure video plays properly on mobile devices
@@ -94,28 +94,28 @@ const Hero = () => {
     }
   };
 
-  const testApiHealth = async () => {
-    try {
-      const apiUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://dsquare-backend-dygo.onrender.com/api/hero/health'
-        : 'http://localhost:5000/api/hero/health';
+  // const testApiHealth = async () => {
+  //   try {
+  //     const apiUrl = process.env.NODE_ENV === 'production' 
+  //       ? 'https://dsquare-backend-dygo.onrender.com/api/hero/health'
+  //       : 'http://localhost:5000/api/hero/health';
       
-      // console.log('[Hero] Testing API health at:', apiUrl);
-      const response = await fetch(apiUrl, { 
-        method: 'GET',
-        headers: { 'Accept': 'application/json' }
-      });
+  //     // console.log('[Hero] Testing API health at:', apiUrl);
+  //     const response = await fetch(apiUrl, { 
+  //       method: 'GET',
+  //       headers: { 'Accept': 'application/json' }
+  //     });
       
-      if (response.ok) {
-        const data = await response.json();
-        // console.log('[Hero] API health check passed:', data);
-      } else {
-        console.warn('[Hero] API health check failed with status:', response.status);
-      }
-    } catch (error) {
-      console.warn('[Hero] API health check error:', error.message);
-    }
-  };
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       // console.log('[Hero] API health check passed:', data);
+  //     } else {
+  //       console.warn('[Hero] API health check failed with status:', response.status);
+  //     }
+  //   } catch (error) {
+  //     console.warn('[Hero] API health check error:', error.message);
+  //   }
+  // };
 
   return (
     <section className="relative hero-min-height flex items-center justify-center text-white overflow-hidden bg-black">
