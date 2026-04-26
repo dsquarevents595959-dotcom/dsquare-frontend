@@ -51,7 +51,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const apiUrl = `${process.env.NODE_ENV === 'production' ? 'https://dsquare-backend-dygo.onrender.com' : 'http://localhost:5000'}/api/contact/info`;
+        const apiUrl = `${import.meta.env.VITE_API_URL}/api/contact/info`;
         console.log('Fetching contact info from:', apiUrl);
         
         const response = await fetch(apiUrl);
@@ -80,26 +80,6 @@ const Navbar = () => {
 
     // Initial fetch
     fetchContactInfo();
-
-    // Listen for contact info updates from admin
-    const handleContactInfoUpdate = (event) => {
-      // console.log('Navbar received contactInfoUpdated event:', event);
-      const updatedContactInfo = event.detail;
-      if (updatedContactInfo) {
-        // console.log('Updating Navbar contact info:', updatedContactInfo);
-        setContactInfo({
-          phone: updatedContactInfo.phone,
-          email: updatedContactInfo.email
-        });
-      }
-    };
-
-    window.addEventListener('contactInfoUpdated', handleContactInfoUpdate);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('contactInfoUpdated', handleContactInfoUpdate);
-    };
   }, []);
 
   return (

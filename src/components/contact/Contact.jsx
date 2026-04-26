@@ -25,7 +25,7 @@ const Contact = () => {
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const response = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://dsquare-backend-dygo.onrender.com' : 'http://localhost:5000'}/api/contact/info`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/info`);
         const data = await response.json();
         if (data.success && data.data) {
           setContactInfo(data.data);

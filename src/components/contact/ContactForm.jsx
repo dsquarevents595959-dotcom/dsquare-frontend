@@ -41,9 +41,7 @@ const ContactForm = () => {
     
     try {
       // Use the EMAIL endpoint which sends emails
-      const emailEndpoint = process.env.NODE_ENV === 'production' 
-        ? 'https://dsquare-backend-dygo.onrender.com/api/email/send-contact'
-        : 'http://localhost:5000/api/email/send-contact';
+      const emailEndpoint = `${import.meta.env.VITE_API_URL}/api/email/send-contact`;
       
       console.log('Submitting to:', emailEndpoint);
       console.log('Form data:', formData);
