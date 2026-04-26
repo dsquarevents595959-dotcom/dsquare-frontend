@@ -40,21 +40,12 @@ const ContactForm = () => {
     }
     
     try {
-      // Use the EMAIL endpoint which sends emails
-      const emailEndpoint = process.env.NODE_ENV === 'production' 
-        ? 'https://dsquare-backend-dygo.onrender.com/api/email/send-contact'
-        : 'http://localhost:5000/api/email/send-contact';
-      
-      console.log('Submitting to:', emailEndpoint);
-      console.log('Form data:', formData);
-
-      const response = await axios.post(emailEndpoint, formData, {
+      // Send email using backend API
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/email/send-contact`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      
-      console.log('Response:', response.data);
       
       if (response.data.success) {
         setSubmitStatus('success');
@@ -65,29 +56,13 @@ const ContactForm = () => {
           subject: '',
           message: ''
         });
-        
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
       } else {
-        setErrorMessage(response.data.message || 'Failed to submit form');
+        setErrorMessage(response.data.message || 'Failed to send message. Please try again.');
         setSubmitStatus('error');
       }
-      
     } catch (error) {
-      console.error('Error submitting form:', error);
-      
-      let errorMsg = 'There was an error submitting the form. Please try again later.';
-      
-      if (error.response?.data?.message) {
-        errorMsg = error.response.data.message;
-      } else if (error.response?.data?.errors) {
-        errorMsg = error.response.data.errors.join(', ');
-      } else if (error.message) {
-        errorMsg = error.message;
-      }
-      
-      setErrorMessage(errorMsg);
+      console.error('Error submitting contact form:', error);
+      setErrorMessage('Failed to send message. Please try again later.');
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
