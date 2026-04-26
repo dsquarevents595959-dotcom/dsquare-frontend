@@ -48,38 +48,13 @@ const Navbar = () => {
     email: 'dinesh@dsquarevents.com'
   });
 
+  // Contact info is now hardcoded since contact API was removed
   useEffect(() => {
-    const fetchContactInfo = async () => {
-      try {
-        const apiUrl = `${import.meta.env.VITE_API_URL}/api/contact/info`;
-        console.log('Fetching contact info from:', apiUrl);
-        
-        const response = await fetch(apiUrl);
-        console.log('Response status:', response.status);
-        console.log('Response headers:', response.headers);
-        
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('API Error:', response.status, errorText);
-          return;
-        }
-        
-        const data = await response.json();
-        console.log('Response data:', data);
-        
-        if (data.success && data.data) {
-          setContactInfo({
-            phone: data.data.phone,
-            email: data.data.email
-          });
-        }
-      } catch (error) {
-        console.error('Error fetching contact info:', error);
-      }
-    };
-
-    // Initial fetch
-    fetchContactInfo();
+    // Static contact info
+    setContactInfo({
+      phone: '+91 7032619629',
+      email: 'dinesh@dsquarevents.com'
+    });
   }, []);
 
   return (

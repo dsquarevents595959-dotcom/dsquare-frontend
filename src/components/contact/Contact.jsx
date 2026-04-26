@@ -23,42 +23,15 @@ const Contact = () => {
   });
 
   useEffect(() => {
-    const fetchContactInfo = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/info`);
-        const data = await response.json();
-        if (data.success && data.data) {
-          setContactInfo(data.data);
-        }
-      } catch (error) {
-        console.error('Error fetching contact info:', error);
-      }
-    };
-
-    // Initial fetch
-    fetchContactInfo();
-
-    // Listen for contact info updates from admin
-    const handleContactInfoUpdate = (event) => {
-      console.log('Contact component received contactInfoUpdated event:', event);
-      const updatedContactInfo = event.detail;
-      console.log('Updated contact info details:', updatedContactInfo);
-      if (updatedContactInfo) {
-        console.log('Updating Contact component contact info:', updatedContactInfo);
-        console.log('Previous contact info:', contactInfo);
-        setContactInfo(updatedContactInfo);
-        console.log('Contact info updated successfully');
-      } else {
-        console.log('No contact info data received in event');
-      }
-    };
-
-    window.addEventListener('contactInfoUpdated', handleContactInfoUpdate);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('contactInfoUpdated', handleContactInfoUpdate);
-    };
+    setContactInfo({
+      phone: '+91 7032619629',
+      email: 'dinesh@dsquarevents.com',
+      address: '2nd floor, Ganesh Rd poojitha residency, D. No- #61-22/1-1, beside janasena party office, near padavalarevu, ramalingeswaranagar, Vijayawada, Andhra Pradesh 520013',
+      facebook: 'https://www.facebook.com/share/1AzLuChNq1/',
+      whatsapp: 'https://wa.me/917032619629',
+      instagram: 'https://www.instagram.com/dsquare_events_?utm_source=qr&igsh=dWM2YWd2Y2dsaXQ1',
+      youtube: 'https://www.youtube.com/@DSQUARE.EVENTS.DANCE.5959'
+    });
   }, []);
 
   return (
