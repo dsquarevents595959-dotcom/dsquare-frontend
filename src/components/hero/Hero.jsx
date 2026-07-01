@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DsquareLogo from './DsquareLogo';
 // import BookingForm from '../booking/BookingForm';
+import heroVideoFile from "./courousel-hero.mp4";
 
 const Hero = () => {
   const [showBookingForm, setShowBookingForm] = useState(false);
@@ -65,7 +66,7 @@ const Hero = () => {
         console.warn('[Hero] Error response body:', errorText);
         
         setHeroVideo({
-          videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+          videoUrl: 'heroVideoFile',
           videoTitle: 'DSquare Events'
         });
         return;
