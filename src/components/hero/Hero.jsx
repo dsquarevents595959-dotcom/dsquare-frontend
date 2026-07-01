@@ -38,71 +38,48 @@ const Hero = () => {
   }, []);
 
   const fetchHeroVideo = async () => {
+    const fallbackHeroVideo = {
+      videoUrl: heroVideoFile,
+      videoTitle: 'DSquare Events Hero Video'
+    };
+
     try {
-<<<<<<< HEAD
-      const apiUrl = process.env.NODE_ENV === 'production' 
+      const apiUrl = import.meta.env.MODE === 'production'
         ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
         : 'http://localhost:5000/api/hero/video';
-      
-      // console.log('[Hero] Fetching hero video from:', apiUrl);
+
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-      
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         signal: controller.signal
       });
-      
+
       clearTimeout(timeoutId);
-      
-      // console.log('[Hero] API response status:', response.status, response.statusText);
-      
+
       if (!response.ok) {
-        // console.warn(`[Hero] Hero video API returned ${response.status} ${response.statusText}. Using fallback video.`);
         const errorText = await response.text();
-        console.warn('[Hero] Error response body:', errorText);
-        
-        setHeroVideo({
-          videoUrl: 'heroVideoFile',
-          videoTitle: 'DSquare Events'
-        });
+        console.warn('[Hero] Hero video API returned an error. Using fallback video.', errorText);
+        setHeroVideo(fallbackHeroVideo);
         return;
       }
-      
+
       const result = await response.json();
-      // console.log('[Hero] API response received:', result.success);
-      
+
       if (result.success && result.data) {
-        // console.log('[Hero] Hero video loaded successfully');
         setHeroVideo(result.data);
       } else {
         console.warn('[Hero] Invalid hero video response. Using fallback.');
-        setHeroVideo({
-          videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-          videoTitle: 'DSquare Events'
-        });
+        setHeroVideo(fallbackHeroVideo);
       }
     } catch (error) {
       console.error('[Hero] Error fetching hero video:', error.message);
-      // Fallback to working video
-=======
-      // Hero video API was removed - use default video
->>>>>>> ae5be0f40d0f11ed124e68fd958a557153073085
-      setHeroVideo({
-        videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        videoTitle: 'DSquare Events Hero Video'
-      });
-    } catch (error) {
-      console.error('Error setting hero video:', error);
-      // Fallback to default video
-      setHeroVideo({
-        videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        videoTitle: 'DSquare Events Hero Video'
-      });
+      setHeroVideo(fallbackHeroVideo);
     }
   };
 
