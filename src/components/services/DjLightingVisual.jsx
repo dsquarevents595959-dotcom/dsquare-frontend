@@ -16,7 +16,7 @@ const DjLightingVisual = () => {
 
   const fetchDjLightingServices = async () => {
     try {
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/dj-lighting-visual');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services/dj-lighting-visual`);
       const result = await response.json();
       if (result.success) {
         setDjLightingServices(result.data);

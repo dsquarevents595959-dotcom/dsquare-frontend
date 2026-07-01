@@ -14,7 +14,7 @@ const Reviews = () => {
   const fetchReviews = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://dsquare-backend-dygo.onrender.com' : 'http://localhost:5000'}/api/reviews`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reviews`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch reviews');

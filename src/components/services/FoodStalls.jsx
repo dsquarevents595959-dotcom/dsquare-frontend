@@ -16,7 +16,7 @@ const FoodStalls = () => {
 
   const fetchFoodStallServices = async () => {
     try {
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/stalls');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services/stalls`);
       const result = await response.json();
       if (result.success) {
         // Filter for food stall related services

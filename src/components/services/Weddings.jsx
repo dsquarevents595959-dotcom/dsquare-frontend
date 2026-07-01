@@ -16,7 +16,7 @@ const Weddings = () => {
 
   const fetchWeddingServices = async () => {
     try {
-      const response = await fetch('https://dsquare-backend-dygo.onrender.com/api/service-cards/weddings');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services/weddings`);
       const result = await response.json();
       if (result.success) {
         setWeddingServices(result.data);

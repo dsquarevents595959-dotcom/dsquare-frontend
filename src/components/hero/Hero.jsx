@@ -39,6 +39,7 @@ const Hero = () => {
 
   const fetchHeroVideo = async () => {
     try {
+<<<<<<< HEAD
       const apiUrl = process.env.NODE_ENV === 'production' 
         ? 'https://dsquare-backend-dygo.onrender.com/api/hero/video'
         : 'http://localhost:5000/api/hero/video';
@@ -88,9 +89,19 @@ const Hero = () => {
     } catch (error) {
       console.error('[Hero] Error fetching hero video:', error.message);
       // Fallback to working video
+=======
+      // Hero video API was removed - use default video
+>>>>>>> ae5be0f40d0f11ed124e68fd958a557153073085
       setHeroVideo({
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        videoTitle: 'DSquare Events'
+        videoTitle: 'DSquare Events Hero Video'
+      });
+    } catch (error) {
+      console.error('Error setting hero video:', error);
+      // Fallback to default video
+      setHeroVideo({
+        videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        videoTitle: 'DSquare Events Hero Video'
       });
     }
   };

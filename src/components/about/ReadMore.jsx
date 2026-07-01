@@ -27,7 +27,7 @@ const ReadMore = () => {
   const fetchCategoryCards = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://dsquare-backend-dygo.onrender.com/api/service-cards/${category}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services/${category}`);
       const result = await response.json();
       if (result.success) {
         setCards(result.data);
